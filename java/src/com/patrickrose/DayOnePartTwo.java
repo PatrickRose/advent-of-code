@@ -11,7 +11,7 @@ public class DayOnePartTwo extends DayOne {
     }
 
     @Override
-    public String GetAnswer() {
+    public String getAnswer() {
         for(int i = 0; i < input.length(); i++)
         {
             this.changeFloor(input.charAt(i));

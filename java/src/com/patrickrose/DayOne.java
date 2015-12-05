@@ -24,7 +24,7 @@ public class DayOne extends AbstractAdventOfCode {
     }
 
     @Override
-    public String GetAnswer() {
+    public String getAnswer() {
         for(char character: this.input.toCharArray())
         {
             this.changeFloor(character);

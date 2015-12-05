@@ -25,7 +25,7 @@ abstract public class AbstractAdventOfCode {
 
     protected abstract String getPuzzleInput();
 
-    abstract public String GetAnswer();
+    abstract public String getAnswer();
 
     public void setInput(String input) {
         this.input = input;

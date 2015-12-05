@@ -22,7 +22,7 @@ public class DayTwoPartOne extends AbstractAdventOfCode {
     }
 
     @Override
-    public String GetAnswer() {
+    public String getAnswer() {
         int answer = 0;
         for(String present: this.input.split("\n"))
         {

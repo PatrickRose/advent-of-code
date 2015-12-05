@@ -16,7 +16,7 @@ public class DayTwoPartTwo extends DayTwoPartOne {
     }
 
     @Override
-    public String GetAnswer() {
+    public String getAnswer() {
         int answer = 0;
 
         for (String present: input.split("\n")) {

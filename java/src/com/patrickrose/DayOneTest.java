@@ -43,7 +43,7 @@ public class DayOneTest {
     public void testOutput() {
         DayOne test = new DayOne(this.input);
 
-        assertEquals(this.expectedOutput, test.GetAnswer());
+        assertEquals(this.expectedOutput, test.getAnswer());
     }
 
     @Test

@@ -28,12 +28,18 @@ public class Main {
                 case DAY_TWO_PART_TWO:
                     code = new DayTwoPartTwo();
                     break;
+                case DAY_THREE_PART_ONE:
+                    code = new DayThreePartOne();
+                    break;
+                case DAY_THREE_PART_TWO:
+                    code = new DayThreePartTwo();
+                    break;
                 default:
                     System.out.println("Unknown argument " + arg);
                     continue;
             }
 
-            System.out.println(code.GetAnswer());
+            System.out.println(code.getAnswer());
         }
     }
 }

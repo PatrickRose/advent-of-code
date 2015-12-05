@@ -4,9 +4,12 @@ public class Main {
 
     private static final String DAY_ONE_PART_ONE = "1.1";
     private static final String DAY_ONE_PART_TWO = "1.2";
-    private static final String DAY_TWO = "2";
-    private static final String DAY_THREE = "3";
-    private static final String DAY_FOUR = "4";
+    private static final String DAY_TWO_PART_ONE = "2.1";
+    private static final String DAY_TWO_PART_TWO = "2.2";
+    private static final String DAY_THREE_PART_ONE = "3.1";
+    private static final String DAY_THREE_PART_TWO = "3.2";
+    private static final String DAY_FOUR_PART_ONE = "4.1";
+    private static final String DAY_FOUR_PART_TWO = "4.2";
 
     public static void main(String[] args) {
         for(String arg: args)
@@ -18,6 +21,12 @@ public class Main {
                     break;
                 case DAY_ONE_PART_TWO:
                     code = new DayOnePartTwo();
+                    break;
+                case DAY_TWO_PART_ONE:
+                    code = new DayTwoPartOne();
+                    break;
+                case DAY_TWO_PART_TWO:
+                    code = new DayTwoPartTwo();
                     break;
                 default:
                     System.out.println("Unknown argument " + arg);

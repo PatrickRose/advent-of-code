@@ -34,6 +34,12 @@ public class Main {
                 case DAY_THREE_PART_TWO:
                     code = new DayThreePartTwo();
                     break;
+                case DAY_FOUR_PART_ONE:
+                    code = new DayFourPartOne();
+                    break;
+                case DAY_FOUR_PART_TWO:
+                    code = new DayFourPartTwo();
+                    break;
                 default:
                     System.out.println("Unknown argument " + arg);
                     continue;

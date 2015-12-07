@@ -3,10 +3,12 @@
 namespace PatrickRose\DayFive;
 
 
-class NaughtyOrNice
+use PatrickRose\AdventOfCode;
+
+class NaughtyOrNice extends AdventOfCode
 {
 
-    public function runPuzzleInput()
+    protected function runPuzzleInput()
     {
         return $this->countAllNaughtyOrNice(file_get_contents(__DIR__ . '/input.txt'));
     }

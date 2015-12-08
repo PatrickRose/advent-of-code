@@ -32,5 +32,11 @@ foreach ($argv as $arg) {
             $class = new \PatrickRose\DaySeven\NewBitWise();
             echo 'Answer to day 7 part 2 is ' . $class->getAnswer();
             break;
+        case '8.1':
+            $class = new PatrickRose\DayEight\StringLength();
+            echo 'Answer to day 8 part 1 is ' . $class->getAnswer();
+        case '8.2':
+            $class = new PatrickRose\DayEight\NewStringLength();
+            echo 'Answer to day 8 part 2 is ' . $class->getAnswer();
     }
 }

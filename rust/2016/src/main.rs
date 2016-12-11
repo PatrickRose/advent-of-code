@@ -1,9 +1,12 @@
 mod day1;
+mod day2;
+mod day3;
 
 extern crate getopts;
 
 use getopts::Options;
 use std::env;
+
 
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {} FILE [options]", program);
@@ -39,6 +42,8 @@ fn main() {
                 Ok(day) => {
                     match day {
                         1 => {day1::calculate(matches.opt_present("e"))}
+                        2 => {day2::calculate(matches.opt_present("e"))}
+                        3 => {day3::calculate(matches.opt_present("e"))}
                         _ => {println!("Not done this day yet :-( {}", day); }
                     }
                 }

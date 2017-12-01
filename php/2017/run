@@ -1,0 +1,9 @@
+<?php
+
+require "vendor/autoload.php";
+
+$app = new \Symfony\Component\Console\Application();
+$app->add(new \PatrickRose\AdventOfCode\AdventOfCode('day'));
+$app->setDefaultCommand('day', true);
+
+$app->run();

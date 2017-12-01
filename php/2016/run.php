@@ -35,8 +35,18 @@ foreach ($argv as $arg) {
         case '8.1':
             $class = new PatrickRose\DayEight\StringLength();
             echo 'Answer to day 8 part 1 is ' . $class->getAnswer();
+            break;
         case '8.2':
             $class = new PatrickRose\DayEight\NewStringLength();
             echo 'Answer to day 8 part 2 is ' . $class->getAnswer();
+            break;
+        case '9.1':
+            $class = new PatrickRose\DayNine\ShortestRoute();
+            echo 'Answer to day 9 part 1 is ' . $class->getAnswer();
+            break;
+        case '9.2':
+            $class = new PatrickRose\DayEight\NewStringLength();
+            echo 'Answer to day 8 part 2 is ' . $class->getAnswer();
+            break;
     }
 }

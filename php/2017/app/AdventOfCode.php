@@ -4,6 +4,7 @@
 namespace PatrickRose\AdventOfCode;
 
 use PatrickRose\AdventOfCode\Days\AbstractDay;
+use PatrickRose\AdventOfCode\Days\CheckSums;
 use PatrickRose\AdventOfCode\Days\DigitSums;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -34,6 +35,8 @@ class AdventOfCode extends Command
         {
             case 1:
                 return new DigitSums($output);
+            case 2:
+                return new CheckSums($output);
         }
 
         throw new InvalidArgumentException("Unknown day $day");

@@ -10,7 +10,7 @@ abstract class AbstractDay
     /**
      * @var Output
      */
-    private $output;
+    protected $output;
 
     public function __construct(Output $output)
     {

@@ -5,6 +5,7 @@ namespace PatrickRose\AdventOfCode;
 
 use PatrickRose\AdventOfCode\Days\AbstractDay;
 use PatrickRose\AdventOfCode\Days\CheckSums;
+use PatrickRose\AdventOfCode\Days\Debugger;
 use PatrickRose\AdventOfCode\Days\DigitSums;
 use PatrickRose\AdventOfCode\Days\Maze;
 use PatrickRose\AdventOfCode\Days\Passphrases;
@@ -46,8 +47,10 @@ class AdventOfCode extends Command
                 return new Passphrases($output);
             case 5:
                 return new Maze($output);
+            case 6:
+                return new Debugger($output);
         }
 
-        throw new InvalidArgumentException("Unknown day $day");
+        throw new \InvalidArgumentException("Unknown day $day");
     }
 }

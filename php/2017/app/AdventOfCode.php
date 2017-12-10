@@ -6,6 +6,7 @@ namespace PatrickRose\AdventOfCode;
 use PatrickRose\AdventOfCode\Days\AbstractDay;
 use PatrickRose\AdventOfCode\Days\CheckSums;
 use PatrickRose\AdventOfCode\Days\DigitSums;
+use PatrickRose\AdventOfCode\Days\Maze;
 use PatrickRose\AdventOfCode\Days\Passphrases;
 use PatrickRose\AdventOfCode\Days\SpiralMemory;
 use Symfony\Component\Console\Command\Command;
@@ -43,6 +44,8 @@ class AdventOfCode extends Command
                 return new SpiralMemory($output);
             case 4:
                 return new Passphrases($output);
+            case 5:
+                return new Maze($output);
         }
 
         throw new InvalidArgumentException("Unknown day $day");

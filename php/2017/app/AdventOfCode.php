@@ -10,6 +10,7 @@ use PatrickRose\AdventOfCode\Days\DigitSums;
 use PatrickRose\AdventOfCode\Days\Maze;
 use PatrickRose\AdventOfCode\Days\Passphrases;
 use PatrickRose\AdventOfCode\Days\RecursiveTree;
+use PatrickRose\AdventOfCode\Days\RegisterInstructions;
 use PatrickRose\AdventOfCode\Days\SpiralMemory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -52,6 +53,8 @@ class AdventOfCode extends Command
                 return new Debugger($output);
             case 7:
                 return new RecursiveTree($output);
+            case 8:
+                return new RegisterInstructions($output);
         }
 
         throw new \InvalidArgumentException("Unknown day $day");

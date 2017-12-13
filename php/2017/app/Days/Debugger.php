@@ -29,7 +29,6 @@ class Debugger extends AbstractDay
             $max = max($blocks);
             $index = array_search($max, $blocks);
             $blocks[$index] = 0;
-
             foreach(range(1, $max) as $i)
             {
                 $blocks[($index + $i) % count($blocks)]++;

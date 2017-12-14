@@ -12,6 +12,7 @@ use PatrickRose\AdventOfCode\Days\Passphrases;
 use PatrickRose\AdventOfCode\Days\RecursiveTree;
 use PatrickRose\AdventOfCode\Days\RegisterInstructions;
 use PatrickRose\AdventOfCode\Days\SpiralMemory;
+use PatrickRose\AdventOfCode\Days\StreamProcessing;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -55,6 +56,8 @@ class AdventOfCode extends Command
                 return new RecursiveTree($output);
             case 8:
                 return new RegisterInstructions($output);
+            case 9:
+                return new StreamProcessing($output);
         }
 
         throw new \InvalidArgumentException("Unknown day $day");

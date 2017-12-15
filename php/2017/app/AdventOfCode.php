@@ -7,6 +7,7 @@ use PatrickRose\AdventOfCode\Days\AbstractDay;
 use PatrickRose\AdventOfCode\Days\CheckSums;
 use PatrickRose\AdventOfCode\Days\Debugger;
 use PatrickRose\AdventOfCode\Days\DigitSums;
+use PatrickRose\AdventOfCode\Days\KnotHashing;
 use PatrickRose\AdventOfCode\Days\Maze;
 use PatrickRose\AdventOfCode\Days\Passphrases;
 use PatrickRose\AdventOfCode\Days\RecursiveTree;
@@ -58,6 +59,8 @@ class AdventOfCode extends Command
                 return new RegisterInstructions($output);
             case 9:
                 return new StreamProcessing($output);
+            case 10:
+                return new KnotHashing($output);
         }
 
         throw new \InvalidArgumentException("Unknown day $day");

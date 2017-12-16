@@ -70,7 +70,7 @@ class GridMaps extends AbstractDay
         if ($partTwo) {
             return max($distances);
         }
-        
+
         return (abs($pos['x']) + abs($pos['y']) + abs($pos['z'])) / 2;
     }
 }

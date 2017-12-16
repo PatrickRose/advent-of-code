@@ -5,6 +5,7 @@ namespace PatrickRose\AdventOfCode;
 
 use PatrickRose\AdventOfCode\Days\AbstractDay;
 use PatrickRose\AdventOfCode\Days\CheckSums;
+use PatrickRose\AdventOfCode\Days\CommunicationPipes;
 use PatrickRose\AdventOfCode\Days\Debugger;
 use PatrickRose\AdventOfCode\Days\DigitSums;
 use PatrickRose\AdventOfCode\Days\GridMaps;
@@ -64,6 +65,8 @@ class AdventOfCode extends Command
                 return new KnotHashing($output);
             case 11:
                 return new GridMaps($output);
+            case 12:
+                return new CommunicationPipes($output);
         }
 
         throw new \InvalidArgumentException("Unknown day $day");

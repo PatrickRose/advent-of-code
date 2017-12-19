@@ -8,6 +8,7 @@ use PatrickRose\AdventOfCode\Days\CheckSums;
 use PatrickRose\AdventOfCode\Days\CommunicationPipes;
 use PatrickRose\AdventOfCode\Days\Debugger;
 use PatrickRose\AdventOfCode\Days\DigitSums;
+use PatrickRose\AdventOfCode\Days\Firewall;
 use PatrickRose\AdventOfCode\Days\GridMaps;
 use PatrickRose\AdventOfCode\Days\KnotHashing;
 use PatrickRose\AdventOfCode\Days\Maze;
@@ -67,6 +68,8 @@ class AdventOfCode extends Command
                 return new GridMaps($output);
             case 12:
                 return new CommunicationPipes($output);
+            case 13:
+                return new Firewall($output);
         }
 
         throw new \InvalidArgumentException("Unknown day $day");

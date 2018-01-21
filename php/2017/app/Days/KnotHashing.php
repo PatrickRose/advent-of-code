@@ -14,14 +14,9 @@ class KnotHashing extends AbstractDay
     {
         $input = $this->getPuzzleInput();
 
-        if ($partTwo)
-        {
-            $input = implode(
-                ',',
-                array_merge(
-                    array_map('ord', str_split($input)),
-                    [17, 31, 73, 47, 23]
-                )
+        if ($partTwo) {
+            return $this->getKnotHash(
+                array_map('ord', str_split($input))
             );
         }
 
@@ -29,10 +24,35 @@ class KnotHashing extends AbstractDay
         $skipCount = 0;
         $list = range(0, 255);
         $listLength = count($list);
-        $numIterations = $partTwo ? 64 : 1;
 
-        for($iteration = 0; $iteration < $numIterations; $iteration++) {
-            foreach (explode(',', $input) as $length) {
+        foreach (explode(',', $input) as $length) {
+            $toReverse = [];
+
+            foreach (range(0, $length - 1) as $i) {
+                $toReverse[] = $list[($position + $i) % $listLength];
+            }
+
+            foreach (array_reverse($toReverse) as $i => $val) {
+                $list[($position + $i) % $listLength] = $val;
+            }
+
+            $position += ($length + $skipCount) % $listLength;
+            $skipCount += 1;
+        }
+
+        return $list[0] * $list[1];
+    }
+
+    public static function getKnotHash($input)
+    {
+        $position = 0;
+        $skipCount = 0;
+        $list = range(0, 255);
+        $listLength = count($list);
+        $input = array_merge($input, [17, 31, 73, 47, 23]);
+
+        for ($iteration = 0; $iteration < 64; $iteration++) {
+            foreach ($input as $length) {
                 $toReverse = [];
 
                 foreach (range(0, $length - 1) as $i) {
@@ -48,16 +68,10 @@ class KnotHashing extends AbstractDay
             }
         }
 
-        if (!$partTwo)
-        {
-            return $list[0] * $list[1];
-        }
-
         // Now create the dense hash
         return array_reduce(
             array_map(
-                function ($elementsToXor)
-                {
+                function ($elementsToXor) {
                     return array_reduce(
                         $elementsToXor,
                         function ($result, $item) {
@@ -70,8 +84,7 @@ class KnotHashing extends AbstractDay
             function ($result, $item) {
                 $item = dechex($item);
 
-                if (strlen($item) < 2)
-                {
+                if (strlen($item) < 2) {
                     $item = "0$item";
                 }
 

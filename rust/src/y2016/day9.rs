@@ -56,7 +56,7 @@ pub fn calculate_word(input: &str) -> String {
 
 pub fn calculate_weird_length(input: &str) -> usize {
     println!("I couldn't be bothered to do this...");
-    return 0;
+    return input.len();
 }
 
 #[cfg(test)]

@@ -35,6 +35,6 @@ abstract class AbstractDay
 
     abstract protected function getPuzzleInput(): string;
 
-    abstract public function getAnswer(\bool $partTwo): string;
+    abstract public function getAnswer(bool $partTwo): string;
 
 }

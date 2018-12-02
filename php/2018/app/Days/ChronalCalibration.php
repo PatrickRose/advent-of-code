@@ -1019,7 +1019,7 @@ class ChronalCalibration extends AbstractDay {
 INPUT;
     }
 
-    public function getAnswer(\bool $partTwo): string
+    public function getAnswer(bool $partTwo): string
     {
         $input = $this->getPuzzleInput();
         $current = 0;

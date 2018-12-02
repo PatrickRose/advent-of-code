@@ -34,6 +34,7 @@ class AdventOfCode extends Command
             case 1:
                 return new Days\ChronalCalibration($output);
             case 2:
+                return new Days\InventoryManagementSystem($output);
             case 3:
             case 4:
             case 5:

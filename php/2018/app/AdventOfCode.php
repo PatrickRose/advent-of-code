@@ -36,6 +36,7 @@ class AdventOfCode extends Command
             case 2:
                 return new Days\InventoryManagementSystem($output);
             case 3:
+                return new Days\NoMatterHowYouSliceIt($output);
             case 4:
             case 5:
             case 6:

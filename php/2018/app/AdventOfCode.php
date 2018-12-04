@@ -38,6 +38,7 @@ class AdventOfCode extends Command
             case 3:
                 return new Days\NoMatterHowYouSliceIt($output);
             case 4:
+                return new Days\ReposeRecord($output);
             case 5:
             case 6:
             case 7:

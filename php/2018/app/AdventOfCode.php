@@ -40,6 +40,7 @@ class AdventOfCode extends Command
             case 4:
                 return new Days\ReposeRecord($output);
             case 5:
+                return new Days\AlchemicalReduction($output);
             case 6:
             case 7:
             case 8:

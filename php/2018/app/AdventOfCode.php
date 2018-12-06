@@ -42,6 +42,7 @@ class AdventOfCode extends Command
             case 5:
                 return new Days\AlchemicalReduction($output);
             case 6:
+                return new Days\ChronalCoordinates($output);
             case 7:
             case 8:
             case 9:

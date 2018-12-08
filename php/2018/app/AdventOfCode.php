@@ -44,6 +44,7 @@ class AdventOfCode extends Command
             case 6:
                 return new Days\ChronalCoordinates($output);
             case 7:
+                return new Days\SumOfItsParts($output);
             case 8:
             case 9:
             case 10:

@@ -27,11 +27,11 @@ class MarbleMania extends AbstractDay
         $points = [1 => 0];
 
         if ($partTwo) {
-            // On my machine, it segfaults
-            // I can make it not segfault for longer if I trigger lots of gc_collect_cycles
-            // There's no linked list in PHP, so there's probably some nasty
-            // thing there
             $finished *= 100;
+            // On my machine, it segfaults because the GC hits a stack overflow.
+            // This fixes the issue
+            gc_disable();
+            ini_set('memory_limit', -1);
         }
 
         for ($i = 1; $i <= $finished; $i++) {
@@ -49,11 +49,7 @@ class MarbleMania extends AbstractDay
 
                 $points[$currentPlayer] += $currentMarble->getValue();
 
-                $before = $currentMarble->getBefore();
-                $after = $currentMarble->getAfter();
-                $after->setBefore($before);
-                $before->setAfter($after);
-                $currentMarble = $after;
+                $currentMarble = $currentMarble->remove();
             } else {
                 // Next counter clockwise
                 $currentMarble = $currentMarble->getAfter()->insertAfter($i);

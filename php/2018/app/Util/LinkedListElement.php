@@ -38,7 +38,13 @@ class LinkedListElement
         $this->before->setAfter($this->after);
         $this->after->setBefore($this->before);
 
-        return $this->after;
+        $toReturn = $this->after;
+
+        // Help PHP's gc
+        unset($this->before);
+        unset($this->after);
+
+        return $toReturn;
     }
 
     /**

@@ -47,6 +47,7 @@ class AdventOfCode extends Command
             case 8:
                 return new Days\MemoryManeuver($output);
             case 9:
+                return new Days\MarbleMania($output);
             case 10:
             case 11:
             case 12:

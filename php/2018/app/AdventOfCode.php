@@ -29,8 +29,7 @@ class AdventOfCode extends Command
 
     private function getDay($day, OutputInterface $output): AbstractDay
     {
-        switch ($day)
-        {
+        switch ($day) {
             case 1:
                 return new Days\ChronalCalibration($output);
             case 2:
@@ -46,6 +45,7 @@ class AdventOfCode extends Command
             case 7:
                 return new Days\SumOfItsParts($output);
             case 8:
+                return new Days\MemoryManeuver($output);
             case 9:
             case 10:
             case 11:

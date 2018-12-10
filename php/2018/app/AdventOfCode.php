@@ -49,6 +49,7 @@ class AdventOfCode extends Command
             case 9:
                 return new Days\MarbleMania($output);
             case 10:
+                return new Days\TheStarsAlign($output);
             case 11:
             case 12:
             case 13:

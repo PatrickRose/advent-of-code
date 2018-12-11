@@ -51,6 +51,7 @@ class AdventOfCode extends Command
             case 10:
                 return new Days\TheStarsAlign($output);
             case 11:
+				return new Days\ChronalCharge($output);
             case 12:
             case 13:
             case 14:

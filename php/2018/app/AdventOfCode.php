@@ -53,6 +53,7 @@ class AdventOfCode extends Command
             case 11:
 				return new Days\ChronalCharge($output);
             case 12:
+                return new Days\SubterraneanSustainability($output);
             case 13:
             case 14:
             case 15:

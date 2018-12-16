@@ -57,6 +57,7 @@ class AdventOfCode extends Command
             case 13:
                 return new Days\MineCartMadness($output);
             case 14:
+                return new Days\ChocolateCharts($output);
             case 15:
             case 16:
             case 17:

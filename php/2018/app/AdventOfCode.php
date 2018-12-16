@@ -55,6 +55,7 @@ class AdventOfCode extends Command
             case 12:
                 return new Days\SubterraneanSustainability($output);
             case 13:
+                return new Days\MineCartMadness($output);
             case 14:
             case 15:
             case 16:

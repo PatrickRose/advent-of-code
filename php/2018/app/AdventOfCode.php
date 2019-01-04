@@ -60,6 +60,7 @@ class AdventOfCode extends Command
                 return new Days\ChocolateCharts($output);
             case 15:
             case 16:
+                return new Days\ChronalClassification($output);
             case 17:
             case 18:
             case 19:

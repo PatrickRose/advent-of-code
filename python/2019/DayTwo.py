@@ -3,7 +3,7 @@ import sys
 ## Input should only be one line
 input = sys.stdin.readlines()[0].strip()
 
-opcodes = list(map(int, input.split(',')))
+opcodes = [int(x) for x in input.split(',')]
 
 def run_program(opcodes, input1, input2):
     position = 0

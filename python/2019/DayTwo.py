@@ -9,11 +9,17 @@ opcodes = [int(x) for x in input.split(',')]
 
 program = Intcode(2)
 
-print ("Part One: " + str(program.run_program(opcodes.copy(), 12, 2)))
+partOne = opcodes.copy()
+partOne[1] = 12
+partOne[2] = 2
+print ("Part One: " + str(program.run_program()))
 
 for i in range(100):
     for j in range(100):
-        value = program.run_program(opcodes.copy(), i, j)
+        partTwo = opcodes.copy()
+        partTwo[1] = i
+        partTwo[2] = j
+        value = program.run_program(partTwo)
         if value == 19690720:
             print ("Part two: " + str((100 * i + j)))
             exit(0)

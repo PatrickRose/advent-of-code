@@ -1,21 +1,24 @@
+import queue
+
 class Intcode:
 
-    def __init__(self, version):
-        self.version = version
+    input = []
 
-    def run_program(self, memory, given_input = []):
+    def __init__(self, version, input = queue.Queue(), output = queue.Queue()):
+        self.version = version
+        self.input = input
+        self.output = output
+
+    def run_program(self, memory):
         self.position = 0
         self.memory = memory
-        self.output = []
-        self.input = given_input
-
         while True:
             unparsed_opcode = "%05d" % int(self.memory[self.position])
 
             opcode = int(unparsed_opcode[-2:])
 
             modes = [int(x) for x in unparsed_opcode[:-2]]
-            
+
             if opcode == 1:
                 self.add(modes)
             elif opcode == 2:
@@ -80,14 +83,13 @@ class Intcode:
 
     def do_input(self, modes):
         output = self.memory[self.position+1]
-
-        self.memory[output] = self.input.pop()
+        self.memory[output] = self.input.get()
         self.position += 2
 
     def do_output(self, modes):
         output = self.memory[self.position+1]
 
-        self.output.append(self.memory[output])
+        self.output.put(self.memory[output])
         self.position += 2
 
     def jump_if_true(self, modes):
@@ -151,3 +153,10 @@ class Intcode:
 
         self.memory[output] = to_place
         self.position += 4
+
+class InputRequiredException(Exception):
+
+    output = []
+    
+    def __init__(self, output):
+        self.output = output

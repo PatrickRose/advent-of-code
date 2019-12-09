@@ -1,11 +1,37 @@
-import sys
+import sys, queue
 
 from common.Intcode import Intcode
 
-intcode = Intcode(5)
 
 puzzle = [int(x) for x in sys.stdin.readlines()[0].split(',')]
 
-print("Part 1: " + str(intcode.run_program(puzzle.copy(), [1])))
+q1 = queue.Queue()
+q1.put(1)
 
-print("Part 2: " + str(intcode.run_program(puzzle.copy(), [5])))
+intcode = Intcode(5, q1)
+
+o1 = intcode.run_program(puzzle.copy())
+part1 = []
+
+while True:
+    try:
+        part1.append(o1.get_nowait())
+    except queue.Empty:
+        break
+
+print("Part 1: " + str(part1))
+
+q2 = queue.Queue()
+q2.put(5)
+intcode = Intcode(5, q2)
+
+intcode.run_program(puzzle.copy())
+part2 = []
+
+while True:
+    try:
+        part2.append(o1.get_nowait())
+    except queue.Empty:
+        break
+
+print("Part 2: " + str(part2))

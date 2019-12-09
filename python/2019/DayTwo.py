@@ -1,4 +1,4 @@
-import sys
+import sys, queue
 
 from common.Intcode import Intcode
 
@@ -12,7 +12,7 @@ program = Intcode(2)
 partOne = opcodes.copy()
 partOne[1] = 12
 partOne[2] = 2
-print ("Part One: " + str(program.run_program()))
+print ("Part One: " + str(program.run_program(partOne)))
 
 for i in range(100):
     for j in range(100):

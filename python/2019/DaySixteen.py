@@ -53,6 +53,4 @@ value = [int(x) for x in puzzle_input] * 10000
 
 offset = int(''.join([str(x) for x in value[:7]]))
 
-new_value = calculate_fft(value, offset)
-
-print ("Part 2", ''.join([str(x) for x in new_value[offset:offset+8]]))
+print ("Part 2", ''.join([str(x) for x in calculate_fft(value, offset)[offset:offset+8]]))

@@ -1,10 +1,7 @@
+import queue
 import sys
 
-import common.Queue
-import queue
-
 from common.IntcodeWaiter import Intcode
-
 
 puzzle_input = [int(x) for x in sys.stdin.readlines()[0].split(',')]
 
@@ -63,7 +60,7 @@ while True:
 
     # If nothing happens after 5 iterations then assume everything is empty
     if idle_ticks > 5:
-        (x,y) = nat_packet
+        (x, y) = nat_packet
         if y in values_passed:
             print(y)
             break

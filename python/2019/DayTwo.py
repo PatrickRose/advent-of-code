@@ -1,4 +1,4 @@
-import sys, queue
+import sys
 
 from common.Intcode import Intcode
 
@@ -12,7 +12,7 @@ program = Intcode(2)
 partOne = opcodes.copy()
 partOne[1] = 12
 partOne[2] = 2
-print ("Part One: " + str(program.run_program(partOne)))
+print("Part One: " + str(program.run_program(partOne)))
 
 for i in range(100):
     for j in range(100):
@@ -21,8 +21,8 @@ for i in range(100):
         partTwo[2] = j
         value = program.run_program(partTwo)
         if value == 19690720:
-            print ("Part two: " + str((100 * i + j)))
+            print("Part two: " + str((100 * i + j)))
             exit(0)
 
 print("Didn't find a value...")
-exit(1) 
+exit(1)

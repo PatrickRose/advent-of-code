@@ -1,24 +1,25 @@
 import sys
 
-def calculate_fft(value, offset = 0, num_times = 100):
+
+def calculate_fft(value, offset=0, num_times=100):
     length = len(value)
 
     for j in range(num_times):
         fft = value[:offset]
 
         last_value = None
-    
+
         for i in range(offset, length):
             if i > length // 2:
                 if last_value is None:
                     last_value = sum(value[i:])
                 else:
-                    last_value -= value[i-1]
+                    last_value -= value[i - 1]
                 fft.append(last_value % 10)
                 continue
-            
+
             up_to = i
-            type = [1,0,-1,0]
+            type = [1, 0, -1, 0]
             position = 0
             char = 0
 
@@ -38,19 +39,20 @@ def calculate_fft(value, offset = 0, num_times = 100):
                 position = (position + 1) % 4
 
             char = sum(adds) - sum(minuses)
-                
+
             fft.append(abs(char) % 10)
 
         value = fft
     return value
 
+
 puzzle_input = sys.stdin.readlines()[0].strip()
 
 value = [int(x) for x in puzzle_input]
 
-print ("Part 1", ''.join([str(x) for x in calculate_fft(value)[:8]]))
+print("Part 1", ''.join([str(x) for x in calculate_fft(value)[:8]]))
 value = [int(x) for x in puzzle_input] * 10000
 
 offset = int(''.join([str(x) for x in value[:7]]))
 
-print ("Part 2", ''.join([str(x) for x in calculate_fft(value, offset)[offset:offset+8]]))
+print("Part 2", ''.join([str(x) for x in calculate_fft(value, offset)[offset:offset + 8]]))

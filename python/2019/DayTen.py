@@ -1,6 +1,6 @@
-import sys
 import math
 import operator
+import sys
 
 puzzle_input = sys.stdin.readlines()
 asteroids = {}
@@ -10,9 +10,10 @@ for i in range(len(puzzle_input)):
     line = puzzle_input[i]
     for j in range(len(line.strip())):
         if line[j] == '#':
-            asteroids[(j,i)] = True
+            asteroids[(j, i)] = True
 
 num_visible = {}
+
 
 def get_angle_between(base, first, second):
     x1, y1 = first
@@ -22,16 +23,16 @@ def get_angle_between(base, first, second):
     x2 -= base[0]
     y2 -= base[1]
     try:
-        dot_product = (x1*x2 + y1*y2)
-        first_length = math.sqrt(x1*x1+y1*y1)
-        second_length = math.sqrt(x2*x2+y2*y2)
+        dot_product = (x1 * x2 + y1 * y2)
+        first_length = math.sqrt(x1 * x1 + y1 * y1)
+        second_length = math.sqrt(x2 * x2 + y2 * y2)
         to_solve = dot_product / (first_length * second_length)
 
         if to_solve < -1:
             to_solve = -1
         elif to_solve > 1:
             to_solve = 1
-            
+
         radians = math.acos(to_solve)
         degree = math.degrees(radians)
     except ZeroDivisionError:
@@ -42,23 +43,24 @@ def get_angle_between(base, first, second):
 
     return degree
 
+
 def get_visible_asteroids(key):
-    x,y = key
+    x, y = key
     count = []
     for to_check in asteroids:
         if to_check == key:
             continue
-        x1,y1 = to_check
-        d1,d2 = x1-x,y1-y
+        x1, y1 = to_check
+        d1, d2 = x1 - x, y1 - y
         gcd = math.gcd(d1, d2)
-        dx,dy = d1/gcd, d2/gcd
-        x2,y2 = x1,y1
+        dx, dy = d1 / gcd, d2 / gcd
+        x2, y2 = x1, y1
 
         checked = []
-            
+
         while x2 != x or y2 != y:
             checked.append((x2, y2))
-            if (x2,y2) != to_check and (x2, y2) in asteroids:
+            if (x2, y2) != to_check and (x2, y2) in asteroids:
                 break
             x2 -= dx
             y2 -= dy
@@ -67,11 +69,12 @@ def get_visible_asteroids(key):
             count.append(to_check)
 
     return count
-            
+
+
 for key in asteroids:
     num_visible[key] = len(get_visible_asteroids(key))
-    
-print ("Part one:", max(num_visible.values()))
+
+print("Part one:", max(num_visible.values()))
 
 max_key = max(num_visible.items(), key=operator.itemgetter(1))[0]
 
@@ -92,7 +95,7 @@ while i <= 200:
     last_asteroid = visible_asteroids.pop()
     destroyed.append(last_asteroid)
     del asteroids[last_asteroid]
-        
-    i +=1 
 
-print ("Part two", last_asteroid[0] * 100 + last_asteroid[1])
+    i += 1
+
+print("Part two", last_asteroid[0] * 100 + last_asteroid[1])

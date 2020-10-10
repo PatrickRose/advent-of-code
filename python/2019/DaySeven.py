@@ -1,6 +1,9 @@
-import sys, queue, threading
+import queue
+import sys
+import threading
 
-from common.Intcode import Intcode, InputRequiredException
+from common.Intcode import Intcode
+
 
 def run_program(phases):
     signal = 0
@@ -12,6 +15,7 @@ def run_program(phases):
         signal = intcode.run_program(puzzle_input.copy()).get()
 
     return signal
+
 
 def run_part_two(phases):
     queues = []
@@ -25,14 +29,15 @@ def run_part_two(phases):
     threads = []
 
     for i in range(5):
-        intcode = Intcode(7, queues[i], queues[(i+1) % 5])
-        thread = threading.Thread(target = intcode.run_program, args=(puzzle_input.copy(),))
+        intcode = Intcode(7, queues[i], queues[(i + 1) % 5])
+        thread = threading.Thread(target=intcode.run_program, args=(puzzle_input.copy(),))
         threads.append(thread)
         thread.start()
 
     [x.join() for x in threads]
 
     return queues[0].get(0)
+
 
 puzzle_input = [int(x) for x in sys.stdin.readlines()[0].split(',')]
 
@@ -59,17 +64,17 @@ for i in range(5):
                     phases.append(this_input.copy())
                     this_input.pop()
                 this_input.pop()
-                
+
             this_input.pop()
-            
+
         this_input.pop()
 
 signals = [run_program(x) for x in phases]
 
-print ("Part one: " + str(max(signals)))
+print("Part one: " + str(max(signals)))
 
 part_two_phases = [[x + 5 for x in y] for y in phases]
 
 part_two = [run_part_two(x) for x in part_two_phases]
 
-print ("Part Two: " + str(max(part_two)))
+print("Part Two: " + str(max(part_two)))

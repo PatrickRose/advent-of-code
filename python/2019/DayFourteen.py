@@ -1,6 +1,5 @@
-import sys
-import math
 import collections
+import sys
 
 puzzle_input = sys.stdin.readlines()
 
@@ -18,7 +17,7 @@ for line in puzzle_input:
 
 def factory(fuel_amount):
     ore_made = 0
-    
+
     leftovers = collections.defaultdict(lambda: 0)
 
     to_make = {"FUEL": fuel_amount}
@@ -31,7 +30,7 @@ def factory(fuel_amount):
 
         if yet_to_make >= 0:
             makes, requirements = reactions[element]
-            time_to_do = (yet_to_make+makes-1) // makes
+            time_to_do = (yet_to_make + makes - 1) // makes
             leftovers[element] += time_to_do * makes - yet_to_make
             for new_element, new_amount in requirements:
                 new_amount *= time_to_do
@@ -50,8 +49,9 @@ def factory(fuel_amount):
         else:
             leftovers[element] -= yet_to_make
     return ore_made
-        
-print ("Part one", factory(1))
+
+
+print("Part one", factory(1))
 
 min, max = 1, 1000000000000
 
@@ -69,5 +69,5 @@ while min + 1 != max:
         min = next_check
     else:
         max = next_check
-        
+
 print("Part two:", min)

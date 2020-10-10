@@ -1,5 +1,6 @@
 import sys
 
+
 class Orbit:
 
     def __init__(self, orbiteer, orbiting):
@@ -16,7 +17,7 @@ class Orbit:
                 returns = orbits[self.orbiting].test_if_orbiting(to_test)
             else:
                 returns = False
-                
+
             self.is_orbiting[to_test] = returns
 
         return self.is_orbiting[to_test]
@@ -29,6 +30,7 @@ class Orbit:
                 count += 1
 
         return count
+
 
 puzzle_input = sys.stdin.readlines()
 
@@ -45,16 +47,18 @@ for key in bodies:
     [orbits[x].test_if_orbiting(key) for x in orbits]
 
 part_one = sum([orbits[x].number_of_orbits() for x in orbits])
-        
-print ("Part one: " + str(part_one))
+
+print("Part one: " + str(part_one))
+
 
 def generate_path(element):
     path = []
     while element in orbits:
         element = orbits[element].orbiting
         path.append(element)
-        
+
     return path
+
 
 def distance_between(first, second):
     first_path = generate_path(first)
@@ -72,4 +76,5 @@ def distance_between(first, second):
 
     return path + second_path.index(to_check)
 
-print ("Part two: " + str(distance_between('YOU', 'SAN')))
+
+print("Part two: " + str(distance_between('YOU', 'SAN')))

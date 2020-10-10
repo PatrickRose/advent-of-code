@@ -1,26 +1,28 @@
-import sys
 import collections
+import sys
 
 from common.Intcode import Intcode
 
 puzzle_input = [int(x) for x in sys.stdin.readlines()[0].split(',')]
+
 
 class RobotPos:
 
     def __init__(self, robot_pos):
         self.robot_pos = robot_pos
 
+
 class ScanInput:
 
     def __init__(self, grid, robot_pos):
         self.grid = grid
         self.robot_pos = robot_pos
-    
+
     def get(self):
         return self.grid[robot_pos.robot_pos]
 
-class PaintOutput:
 
+class PaintOutput:
     paint = True
 
     def __init__(self, grid, robot_pos):
@@ -39,7 +41,7 @@ class PaintOutput:
             self.direction %= 4
 
             x, y = self.robot_pos.robot_pos
-            
+
             if self.direction == 0:
                 y -= 1
             elif self.direction == 1:
@@ -49,11 +51,10 @@ class PaintOutput:
             elif self.direction == 3:
                 x -= 1
 
-            self.robot_pos.robot_pos = (x,y)
-        
-        
+            self.robot_pos.robot_pos = (x, y)
+
         self.paint = not self.paint
-            
+
 
 robot_pos = RobotPos((0, 0))
 grid = collections.defaultdict(lambda: 0)
@@ -61,11 +62,11 @@ intcode = Intcode(11, ScanInput(grid, robot_pos), PaintOutput(grid, robot_pos))
 
 intcode.run_program(puzzle_input.copy())
 
-print ("Part one", len(grid))
+print("Part one", len(grid))
 
 robot_pos = RobotPos((0, 0))
 grid = collections.defaultdict(lambda: 0)
-grid[(0,0)] = 1
+grid[(0, 0)] = 1
 intcode = Intcode(11, ScanInput(grid, robot_pos), PaintOutput(grid, robot_pos))
 
 intcode.run_program(puzzle_input.copy())
@@ -81,12 +82,12 @@ max_y = max(ys)
 
 message = ''
 
-for y in range(min_y, max_y+1):
-    for x in range(min_x, max_x+1):
-        if grid[(x,y)] == 1:
+for y in range(min_y, max_y + 1):
+    for x in range(min_x, max_x + 1):
+        if grid[(x, y)] == 1:
             message += '#'
         else:
             message += ' '
     message += "\n"
 
-print ("Part two\n", message)
+print("Part two\n", message)

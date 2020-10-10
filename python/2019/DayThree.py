@@ -1,5 +1,6 @@
 import sys
 
+
 def create_wire(input):
     to_return = {}
 
@@ -20,14 +21,15 @@ def create_wire(input):
                 y -= 1
             elif direction == 'L':
                 x -= 1
-                
+
             value -= 1
             num_steps += 1
             key = str(x) + "," + str(y)
             if key not in to_return:
                 to_return[key] = num_steps
-            
+
     return to_return
+
 
 input = sys.stdin.readlines()
 

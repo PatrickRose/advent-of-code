@@ -1,9 +1,9 @@
+import queue
 import sys
 
 import common.Queue
-import queue
-
 from common.Intcode import Intcode
+
 
 def print_output(value):
     msg = ""
@@ -11,10 +11,11 @@ def print_output(value):
     for x in value:
         try:
             msg += chr(x)
-        except ValueError: # if it's out of the ascii range
+        except ValueError:  # if it's out of the ascii range
             msg += str(x)
 
-    print (msg)
+    print(msg)
+
 
 puzzle_input = [int(x) for x in sys.stdin.readlines()[0].split(',')]
 q1 = queue.Queue()
@@ -45,7 +46,6 @@ PART_TWO_COMMAND = [
     "RUN"
 ]
 
-
 q2 = queue.Queue()
 [q2.put(ord(x)) for x in "\n".join(PART_TWO_COMMAND + ["RUN"]) + "\n"]
 
@@ -53,4 +53,3 @@ intcode = Intcode(21, q2)
 part_two = common.Queue.queue_to_list(intcode.run_program(puzzle_input.copy()))
 
 print_output(part_two)
-

@@ -1,4 +1,5 @@
-import sys, math
+import math
+import sys
 
 puzzle_input = sys.stdin.readlines()[0].strip()
 
@@ -7,7 +8,7 @@ tall = 6
 
 n = wide * tall
 
-base_layers = [puzzle_input[start:start+n] for start in range(0, len(puzzle_input), n)]
+base_layers = [puzzle_input[start:start + n] for start in range(0, len(puzzle_input), n)]
 
 ## Can do part 1 now
 
@@ -20,15 +21,15 @@ for layer in base_layers:
         num_zeros = this_zeros
         part1 = layer.count('1') * layer.count('2')
 
-print ("Part 1: " + str(part1))
+print("Part 1: " + str(part1))
 
 ## Now convert layers into actual layers
 
 layers = []
 
 for s in base_layers:
-    layers.append([s[start:start+wide] for start in range(0, n, wide)])
-    
+    layers.append([s[start:start + wide] for start in range(0, n, wide)])
+
 message = ''
 
 for i in range(0, tall):
@@ -45,5 +46,4 @@ for i in range(0, tall):
             message += ' '
     message += "\n"
 
-print ("Part two:\n" + message)
-
+print("Part two:\n" + message)

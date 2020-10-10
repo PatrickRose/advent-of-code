@@ -1,7 +1,7 @@
-import sys, queue
+import queue
+import sys
 
 from common.Intcode import Intcode
-
 
 puzzle = [int(x) for x in sys.stdin.readlines()[0].split(',')]
 

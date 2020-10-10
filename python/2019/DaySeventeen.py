@@ -1,10 +1,8 @@
-import sys
-import re
 import queue
-import itertools
+import re
+import sys
 
 from common.Intcode import Intcode
-import common.Queue
 
 puzzle_input = [int(x) for x in sys.stdin.readlines()[0].split(',')]
 
@@ -12,23 +10,23 @@ intcode = Intcode(17)
 
 intcode.run_program(puzzle_input.copy())
 
-class Robot:
 
+class Robot:
     turns = {
-        (0,-1): {'L':(-1,0), 'R':(1,0)},
-        (0,1): {'L':(1,0), 'R':(-1,0)},
-        (1,0): {'L':(0,-1), 'R':(0,1)},
-        (-1,0): {'L':(0,1), 'R':(0,-1)}
+        (0, -1): {'L': (-1, 0), 'R': (1, 0)},
+        (0, 1): {'L': (1, 0), 'R': (-1, 0)},
+        (1, 0): {'L': (0, -1), 'R': (0, 1)},
+        (-1, 0): {'L': (0, 1), 'R': (0, -1)}
     }
 
     def __init__(self, position, char, grid):
         self.position = position
         self.grid = grid
         self.direction = {
-            '^': (0,-1),
-            '>': (1,0),
-            'v': (0,1),
-            '<': (-1,0)
+            '^': (0, -1),
+            '>': (1, 0),
+            'v': (0, 1),
+            '<': (-1, 0)
         }[char]
 
     def get_path(self):
@@ -54,11 +52,12 @@ class Robot:
                         num_steps = 0
                         self.direction = new_direction
                         break
-                
+
             self.position = new_position
-            
+
         path.append(str(num_steps))
         return path
+
 
 out = intcode.output
 
@@ -73,29 +72,30 @@ while not out.empty():
         x = -1
         y += 1
     elif char != '.':
-        grid[(x,y)] = '#'
+        grid[(x, y)] = '#'
         if char != '#':
-            robot = Robot((x,y), char, grid)
+            robot = Robot((x, y), char, grid)
     x += 1
-
 
 
 # Find the intersections
 def get_alignment(position):
-    x,y = position
-    to_check = [(0,1), (0,-1), (1,0), (-1,0)]
+    x, y = position
+    to_check = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     for val in to_check:
         if (x + val[0], y + val[1]) not in grid:
             return 0
 
     return x * y
 
-print ("Part one", sum([get_alignment(x) for x in grid]))
+
+print("Part one", sum([get_alignment(x) for x in grid]))
 
 # Work out the whole path
 path = robot.get_path()
 
 final_check = re.compile('^[ABC]+$')
+
 
 def list_replace(base, search, replace):
     to_return = base.copy()
@@ -103,12 +103,13 @@ def list_replace(base, search, replace):
     k = len(search)
 
     while i < len(to_return):
-        if to_return[i:i+k] == search:
-            to_return = to_return[:i] + replace + to_return[i+k:]
+        if to_return[i:i + k] == search:
+            to_return = to_return[:i] + replace + to_return[i + k:]
         else:
             i += 1
 
     return to_return
+
 
 # the final path must begin with A+B
 # Each substring can only be 10 chars long
@@ -122,7 +123,7 @@ for i in range(1, 11):
             if final_path[k] != 'A':
                 break
 
-        command_b = final_path[k:k+j]
+        command_b = final_path[k:k + j]
 
         if 'A' in command_b:
             # No point increasing the size of B
@@ -143,8 +144,8 @@ for i in range(1, 11):
 
         final_path = list_replace(final_path, command_c, ['C'])
 
-        [print (''.join(x)) for x in [final_path, command_a, command_b, command_c]]
-        
+        [print(''.join(x)) for x in [final_path, command_a, command_b, command_c]]
+
         if final_check.match(''.join(final_path)):
             program = puzzle_input.copy()
             program[0] = 2
@@ -164,11 +165,11 @@ for i in range(1, 11):
             intcode.run_program(program)
 
             out = intcode.output
-            
+
             while True:
                 val = out.get_nowait()
                 if val > 255:
-                    print ("Part 2", val)
+                    print("Part 2", val)
                     exit(0)
 
-print ("Didn't compress?")
+print("Didn't compress?")

@@ -1,12 +1,12 @@
-import sys
 import math
+import sys
 
 from common.Intcode import Intcode
 
 puzzle_input = [int(x) for x in sys.stdin.readlines()[0].split(',')]
 
-class Robot:
 
+class Robot:
     min_x = 0
     min_y = 0
     max_x = 0
@@ -15,10 +15,10 @@ class Robot:
     backtracking = False
 
     directions = []
-    
+
     def __init__(self):
-        self.grid = {(0,0): 1}
-        self.pos = (0,0)
+        self.grid = {(0, 0): 1}
+        self.pos = (0, 0)
         self.num_steps = 0
 
     def move(self, direction):
@@ -52,7 +52,7 @@ class Robot:
             self.min_y = pos[1]
         elif self.max_y < pos[1]:
             self.max_y = pos[1]
-            
+
         if output != 0:
             self.pos = pos
 
@@ -68,7 +68,7 @@ class Robot:
                 self.num_steps += 1
             else:
                 self.num_steps -= 1
-            
+
         self.grid[pos] = output
         # self.print_grid()
 
@@ -80,20 +80,18 @@ class Robot:
             2: u'\u25A1'
         }
 
-        
-        print ('-' * 30, len(self.grid))
-        
+        print('-' * 30, len(self.grid))
+
         for y in range(self.min_y - 1, self.max_y + 1):
             line = ''
             for x in range(self.min_x - 1, self.max_x + 1):
-                val = self.grid.get((x,y), -1)
-                if (x,y) == self.pos:
+                val = self.grid.get((x, y), -1)
+                if (x, y) == self.pos:
                     line += 'o'
                 else:
                     line += mapping[val]
-            print (line)
-        print ('-' * 30)
-        
+            print(line)
+        print('-' * 30)
 
     def need_to_check(self):
         to_check = {
@@ -108,8 +106,9 @@ class Robot:
             pos = (self.pos[0] + diff[0], self.pos[1] + diff[1])
             if pos not in self.grid:
                 to_return.append(direction)
-                
+
         return to_return
+
 
 class ProvideInput:
 
@@ -127,11 +126,11 @@ class ProvideInput:
             direction = to_check[0]
 
         self.robot.move(direction)
-            
+
         return direction
 
-class TakeOutput:
 
+class TakeOutput:
     part_one = False
 
     def __init__(self, robot):
@@ -140,11 +139,11 @@ class TakeOutput:
     def put(self, value):
         self.robot.update_grid(value)
         if (not self.part_one) and (value == 2):
-            print ("Part one:", self.robot.num_steps)
-            
+            print("Part one:", self.robot.num_steps)
+
 
 robot = Robot()
-        
+
 input = ProvideInput(robot)
 out = TakeOutput(robot)
 
@@ -168,22 +167,21 @@ while math.inf in grid.values():
     for key, value in grid.items():
         if value == steps:
             items.append(key)
-    
+
     steps += 1
 
     for key in items:
-        x,y = key
+        x, y = key
 
         points_to_check = [
-            (x-1, y),
-            (x+1, y),
-            (x, y-1),
-            (x, y+1),
+            (x - 1, y),
+            (x + 1, y),
+            (x, y - 1),
+            (x, y + 1),
         ]
 
         for point in points_to_check:
             if point in grid and grid[point] > steps:
                 grid[point] = steps
 
-
-print ("Part two", steps)
+print("Part two", steps)

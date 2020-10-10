@@ -1,5 +1,5 @@
-import queue
 import collections
+import queue
 
 
 class Intcode:

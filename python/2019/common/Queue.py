@@ -1,5 +1,6 @@
 import queue
 
+
 def queue_to_list(q1):
     l1 = []
     while True:

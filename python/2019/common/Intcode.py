@@ -1,8 +1,8 @@
-import queue
 import collections
+import queue
+
 
 class Intcode:
-
     relative_base = 0
 
     opcode_human = {
@@ -18,7 +18,7 @@ class Intcode:
         99: 'end'
     }
 
-    def __init__(self, version, input = queue.Queue(), output = queue.Queue()):
+    def __init__(self, version, input=queue.Queue(), output=queue.Queue()):
         self.version = version
         self.input = input
         self.output = output
@@ -62,12 +62,12 @@ class Intcode:
 
     def get_memory_at(self, position):
         assert position in self.memory or self.version >= 9
-            
+
         return self.memory[position]
 
     def put_memory_at(self, position, to_set):
         assert position in self.memory or self.version >= 9
-            
+
         self.memory[position] = to_set
 
     def parse_args(self, positions, modes):
@@ -98,8 +98,9 @@ class Intcode:
             ],
             modes
         )
-        output = (self.relative_base + self.get_memory_at(self.position+3)) if modes.pop() == 2 else self.get_memory_at(self.position+3)
-        
+        output = (self.relative_base + self.get_memory_at(
+            self.position + 3)) if modes.pop() == 2 else self.get_memory_at(self.position + 3)
+
         self.put_memory_at(output, arg1 + arg2)
         self.position += 4
 
@@ -111,19 +112,21 @@ class Intcode:
             ],
             modes
         )
-        output = (self.relative_base + self.get_memory_at(self.position+3)) if modes.pop() == 2 else self.get_memory_at(self.position+3)
-        
+        output = (self.relative_base + self.get_memory_at(
+            self.position + 3)) if modes.pop() == 2 else self.get_memory_at(self.position + 3)
+
         self.put_memory_at(output, arg1 * arg2)
         self.position += 4
 
     def do_input(self, modes):
-        output = (self.relative_base + self.get_memory_at(self.position+1)) if modes.pop() == 2 else self.get_memory_at(self.position+1)
+        output = (self.relative_base + self.get_memory_at(
+            self.position + 1)) if modes.pop() == 2 else self.get_memory_at(self.position + 1)
         val = self.input.get()
         self.put_memory_at(output, val)
         self.position += 2
 
     def do_output(self, modes):
-        output = self.parse_args([self.position+1], modes)[0]
+        output = self.parse_args([self.position + 1], modes)[0]
 
         self.output.put(output)
         self.position += 2
@@ -131,11 +134,11 @@ class Intcode:
     def jump_if_true(self, modes):
         test, jump_to = self.parse_args(
             [
-                self.position+1, self.position+2
+                self.position + 1, self.position + 2
             ],
             modes
         )
-        
+
         if test == 0:
             self.position += 3
         else:
@@ -144,7 +147,7 @@ class Intcode:
     def jump_if_false(self, modes):
         test, jump_to = self.parse_args(
             [
-                self.position+1, self.position+2
+                self.position + 1, self.position + 2
             ],
             modes
         )
@@ -157,12 +160,13 @@ class Intcode:
     def less_than(self, modes):
         arg1, arg2 = self.parse_args(
             [
-                self.position+1, self.position+2
+                self.position + 1, self.position + 2
             ],
             modes
         )
 
-        output = (self.relative_base + self.get_memory_at(self.position+3)) if modes.pop() == 2 else self.get_memory_at(self.position+3)
+        output = (self.relative_base + self.get_memory_at(
+            self.position + 3)) if modes.pop() == 2 else self.get_memory_at(self.position + 3)
 
         if arg1 < arg2:
             to_place = 1
@@ -175,12 +179,13 @@ class Intcode:
     def equals(self, modes):
         arg1, arg2 = self.parse_args(
             [
-                self.position+1, self.position+2
+                self.position + 1, self.position + 2
             ],
             modes
         )
 
-        output = (self.relative_base + self.get_memory_at(self.position+3)) if modes.pop() == 2 else self.get_memory_at(self.position+3)
+        output = (self.relative_base + self.get_memory_at(
+            self.position + 3)) if modes.pop() == 2 else self.get_memory_at(self.position + 3)
 
         if arg1 == arg2:
             to_place = 1
@@ -191,9 +196,9 @@ class Intcode:
         self.put_memory_at(output, to_place)
         self.position += 4
 
-class InputRequiredException(Exception):
 
+class InputRequiredException(Exception):
     output = []
-    
+
     def __init__(self, output):
         self.output = output

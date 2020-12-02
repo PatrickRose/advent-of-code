@@ -10,7 +10,7 @@ input.split("\n").forEach((value) => {
     if (!isNaN(num)) {
         expenses.push(num);
     }
-})
+});
 
 const partTwo: Array<{ sum: number, product: number, indexes: Array<number> }> = [];
 

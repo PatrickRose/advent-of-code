@@ -5,17 +5,10 @@ const input = fs.readFileSync(__dirname + '/../input/day05.txt').toString('utf-8
 const seats = input.split("\n");
 
 function convertStrToNum(spec: string): number {
-    let number = 0;
+    const binaryVal = spec.replace(/[BR]/g, '1')
+        .replace(/[FL]/g, '0');
 
-    for (const char of spec.split('')) {
-        number *= 2;
-
-        if (['B', 'R'].includes(char)) {
-            number += 1;
-        }
-    }
-
-    return number;
+    return Number.parseInt(binaryVal, 2);
 }
 
 const seatIDs = seats.map(seat => convertStrToNum(seat));

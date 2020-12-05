@@ -4,13 +4,13 @@ const input = fs.readFileSync(__dirname + '/../input/day05.txt').toString('utf-8
 
 const seats = input.split("\n");
 
-function convertStrToNum(spec: string, higherChar: string): number {
+function convertStrToNum(spec: string): number {
     let number = 0;
 
     for (const char of spec.split('')) {
         number *= 2;
 
-        if (char === higherChar) {
+        if (['B', 'R'].includes(char)) {
             number += 1;
         }
     }
@@ -18,18 +18,7 @@ function convertStrToNum(spec: string, higherChar: string): number {
     return number;
 }
 
-function getRowColumn(seat: string): [number, number] {
-    return [
-        convertStrToNum(seat.slice(0, -3), 'B'),
-        convertStrToNum(seat.slice(-3), 'R')
-    ]
-}
-
-const seatsParsed = seats.map(s => getRowColumn(s));
-
-const seatIDs = seatsParsed.map(seat => {
-    return (seat[0] * 8) + seat[1]
-});
+const seatIDs = seats.map(seat => convertStrToNum(seat));
 
 seatIDs.sort();
 

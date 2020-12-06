@@ -32,7 +32,7 @@ type Question =
     | 'y'
     | 'z';
 
-type Person = Array<Question>
+type Person = Set<Question>
 
 type Group = Array<Person>;
 
@@ -44,11 +44,11 @@ const groups: Array<Group> = rawGroups.map(
     (rawGroup): Group => {
         return rawGroup.split("\n").map(
             (rawPerson): Person => {
-                const person: Person = [];
+                const person: Person = new Set<Question>();
 
                 for (const char of rawPerson.split('')) {
                     if (isQuestion(char)) {
-                        person.push(char);
+                        person.add(char)
                     } else {
                         throw new Error(`Char ${char} was unexpected`)
                     }
@@ -63,19 +63,15 @@ const groups: Array<Group> = rawGroups.map(
 const partOne = groups.reduce(
     (previousValue: number, currentValue: Group): number => {
         const superPerson = currentValue.reduce(
-            (previousValue, currentValue): Person => {
-                for (const val of currentValue) {
-                    if (!previousValue.includes(val)) {
-                        previousValue.push(val);
-                    }
-                }
+            (previousValue, currentValue, index): Person => {
+                currentValue.forEach(val => previousValue.add(val));
 
                 return previousValue;
             },
-            []
+            new Set()
         );
 
-        return previousValue + superPerson.length;
+        return previousValue + superPerson.size;
     },
     0
 );
@@ -86,20 +82,22 @@ const partTwo = groups.reduce(
     (previousValue: number, currentValue: Group): number => {
         const superPerson = currentValue.reduce(
             (previousValue, currentValue, index): Person => {
-                if (index == 0) {
-                    return currentValue;
+                if (previousValue.size == 0) {
+                    return previousValue;
                 }
 
-                return previousValue.filter(
-                    (question: Question): boolean => {
-                        return currentValue.includes(question);
-                    }
+                if (index == 0) {
+                    return previousValue;
+                }
+
+                return new Set(
+                    [...previousValue].filter(val => currentValue.has(val))
                 );
             },
-            []
+            currentValue[0]
         );
 
-        return previousValue + superPerson.length;
+        return previousValue + superPerson.size;
     },
     0
 );

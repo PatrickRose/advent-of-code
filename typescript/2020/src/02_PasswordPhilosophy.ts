@@ -1,6 +1,6 @@
-import * as fs from 'fs';
+import getInput from "./util/getInput";
 
-const input = fs.readFileSync(__dirname + '/../input/day02.txt').toString('utf-8').trim();
+const input = getInput(2)
 
 interface Password {
     requiredChar: string,

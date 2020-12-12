@@ -1,6 +1,6 @@
-import * as fs from "fs";
+import getInput from "./util/getInput";
 
-const input = fs.readFileSync(__dirname + '/../input/day10.txt').toString('utf-8').trim();
+const input = getInput(10)
 
 const adapters: Array<number> = input.split("\n").map(
     s => Number(s)

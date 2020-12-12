@@ -1,6 +1,6 @@
-import * as fs from 'fs';
+import getInput from "./util/getInput";
 
-const input = fs.readFileSync(__dirname + '/../input/day06.txt').toString('utf-8').trim();
+const input = getInput(6)
 
 const rawGroups = input.split("\n\n");
 

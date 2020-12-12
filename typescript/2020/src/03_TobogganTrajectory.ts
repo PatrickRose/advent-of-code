@@ -1,6 +1,6 @@
-import * as fs from 'fs';
+import getInput from "./util/getInput";
 
-const input = fs.readFileSync(__dirname + '/../input/day03.txt').toString('utf-8').trim();
+const input = getInput(3)
 
 const trees: Array<Array<boolean>> = input.split("\n").map(
     (row: string): Array<boolean> => {

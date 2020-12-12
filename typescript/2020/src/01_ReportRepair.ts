@@ -1,6 +1,6 @@
-import * as fs from 'fs';
+import getInput from "./util/getInput";
 
-const input = fs.readFileSync(__dirname + '/../input/day01.txt').toString('utf-8');
+const input = getInput(1)
 
 const expenses: Array<number> = [];
 

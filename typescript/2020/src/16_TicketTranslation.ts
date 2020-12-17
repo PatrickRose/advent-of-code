@@ -126,9 +126,6 @@ while (!rules.every(rule => ruleHasPosition(rule))) {
     });
 }
 
-console.log(rules);
-console.log(myTicket);
-
 const partTwo = rules.reduce(
     (previousVal: bigint, rule: Rule): bigint => {
         if (rule.name.match(/^departure/) === null) {

@@ -1,15 +1,6 @@
 import getInput from "./util/getInput";
 
 const input = getInput(22);
-`Player 1:
-43
-19
-
-Player 2:
-2
-29
-14`;
-
 
 type Deck = Array<number>;
 

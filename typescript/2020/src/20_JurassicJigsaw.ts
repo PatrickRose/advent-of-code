@@ -1,115 +1,6 @@
 import getInput from "./util/getInput";
 
-//const input: string = getInput(20);
-const input = `Tile 2311:
-..##.#..#.
-##..#.....
-#...##..#.
-####.#...#
-##.##.###.
-##...#.###
-.#.#.#..##
-..#....#..
-###...#.#.
-..###..###
-
-Tile 1951:
-#.##...##.
-#.####...#
-.....#..##
-#...######
-.##.#....#
-.###.#####
-###.##.##.
-.###....#.
-..#.#..#.#
-#...##.#..
-
-Tile 1171:
-####...##.
-#..##.#..#
-##.#..#.#.
-.###.####.
-..###.####
-.##....##.
-.#...####.
-#.##.####.
-####..#...
-.....##...
-
-Tile 1427:
-###.##.#..
-.#..#.##..
-.#.##.#..#
-#.#.#.##.#
-....#...##
-...##..##.
-...#.#####
-.#.####.#.
-..#..###.#
-..##.#..#.
-
-Tile 1489:
-##.#.#....
-..##...#..
-.##..##...
-..#...#...
-#####...#.
-#..#.#.#.#
-...#.#.#..
-##.#...##.
-..##.##.##
-###.##.#..
-
-Tile 2473:
-#....####.
-#..#.##...
-#.##..#...
-######.#.#
-.#...#.#.#
-.#########
-.###.#..#.
-########.#
-##...##.#.
-..###.#.#.
-
-Tile 2971:
-..#.#....#
-#...###...
-#.#.###...
-##.##..#..
-.#####..##
-.#..####.#
-#..#.#..#.
-..####.###
-..#.#.###.
-...#.#.#.#
-
-Tile 2729:
-...#.#.#.#
-####.#....
-..#.#.....
-....#..#.#
-.##..##.#.
-.#.####...
-####.#.#..
-##.####...
-##..#.##..
-#.##...##.
-
-Tile 3079:
-#.#.#####.
-.#..######
-..#.......
-######....
-####.#..#.
-.#...#.##.
-#.#####.##
-..#.###...
-..#.......
-..#.###...`;
-
-//
+const input: string = getInput(20);
 
 const placed: Tile[] = [];
 
@@ -406,7 +297,7 @@ for (let y = minY; y <= maxY; y++) {
     grid.push(row);
 }
 
-const joinedGrid: boolean[][] = [];
+let joinedGrid: boolean[][] = [];
 grid.forEach(
     row => {
         for (let y = 0; y < row[0].length; y++) {
@@ -435,11 +326,11 @@ function findRelativePositions(x: number, y: number): [number, number][] {
         [x, y + 1],
         [x + 1, y + 1],
         [x - 17, y + 2],
-        [x - 14, y + 1],
-        [x - 11, y + 1],
-        [x - 8, y + 1],
-        [x - 5, y + 1],
-        [x - 2, y + 1],
+        [x - 14, y + 2],
+        [x - 11, y + 2],
+        [x - 8, y + 2],
+        [x - 5, y + 2],
+        [x - 2, y + 2],
     ];
 }
 
@@ -459,7 +350,6 @@ function findMonsters(grid: boolean[][]): string | null {
         (row, y) => {
             row.forEach(
                 (char, x) => {
-                    convert += char ? '#' : '.';
                     const relativePositions = findRelativePositions(x, y);
 
                     if (relativePositions.every(([x, y]) => testPosition(x, y, grid))) {
@@ -469,7 +359,9 @@ function findMonsters(grid: boolean[][]): string | null {
                             }
                         );
                         found = true;
+                        char = false;
                     }
+                    convert += char ? '#' : '.';
                 }
             );
             convert += "\n";
@@ -483,13 +375,12 @@ function findMonsters(grid: boolean[][]): string | null {
 // If there are, we again call Eric evil
 for (let rotations of [1, 2, 3, 4]) {
     for (let flip of [true, false]) {
-        console.log(`Checking:\n${joinedGrid.map(row => row.map(char => char ? '#' : '.').join("")).join("\n")}`);
         const result = findMonsters(joinedGrid)
         if (result) {
             const count = (result.match(/#/g) || []).length
             console.log(`Part two: ${count}`);
         }
-        flipArray(joinedGrid);
+        joinedGrid = flipArray(joinedGrid);
     }
-    rotateArray(joinedGrid);
+    joinedGrid = rotateArray(joinedGrid);
 }

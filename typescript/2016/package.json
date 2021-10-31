@@ -1,0 +1,21 @@
+{
+    "name": "advent-of-code-2016",
+    "description": "Solutions for 2016 AoC",
+    "version": "0.0.0",
+    "author": "Patrick Rose @PatrickRose",
+    "dependencies": {
+        "typescript": "^4.1.2"
+    },
+    "devDependencies": {
+        "@types/node": "^14.14.10",
+        "nodemon": "^2.0.6",
+        "ts-node": "^9.0.0",
+        "tslib": "^2.0.3"
+    },
+    "homepage": "https://github.com/PatrickRose/advent-of-code",
+    "license": "MIT",
+    "repository": "PatrickRose/advent-of-code",
+    "scripts": {
+        "compile": "tsc"
+    }
+}

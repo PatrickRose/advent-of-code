@@ -1,7 +1,5 @@
-import * as fs from "fs";
+import getInputBase from "../../../util/getInput";
 
 export default function getInput(day: number) {
-    const filename = day < 10 ? `0${day}` : day.toString(10)
-
-    return fs.readFileSync(`${__dirname}/../../input/day${filename}.txt`).toString('utf-8').trim();
+    return getInputBase(2020, day)
 }

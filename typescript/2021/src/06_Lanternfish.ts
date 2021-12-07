@@ -39,6 +39,8 @@ class Fish {
         let fishesMade = 1;
 
         while (currentTime < days) {
+            // We use 9 here, because technically the fish isn't made until the next tick
+            // This is slightly easier to reason about
             fishesMade += (new Fish(currentTime + 9).fishesMadeInPeriod(days));
             currentTime += 7;
         }

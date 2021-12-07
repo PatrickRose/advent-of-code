@@ -7,23 +7,17 @@ const realInput = getInput(7);
 const input = realInput;
 const positions = input.split(',').map(val => Number.parseInt(val, 10));
 
-let [minPart1, minPart2] = [Infinity, Infinity]
-
 function triangle(number: number): number {
     return (number * (number + 1)) / 2;
 }
 
-for (let i = Math.min(...positions); i < Math.max(...positions); i++) {
-    const fuelCostPart1 = positions.map(val => Math.abs(i - val)).reduce((prev, curr) => prev + curr);
-    const fuelCostPart2 = positions.map(val => triangle(Math.abs(i - val))).reduce((prev, curr) => prev + curr);
+positions.sort((a, b) => a - b);
 
-    if (fuelCostPart1 < minPart1) {
-        minPart1 = fuelCostPart1;
-    }
-    if (fuelCostPart2 < minPart2) {
-        minPart2 = fuelCostPart2;
-    }
-}
+const median = positions[(positions.length / 2)];
+const mean = Math.ceil(positions.reduce((prev, curr) => prev + curr) / positions.length);
 
-console.log(`Part 1: ${minPart1}`);
-console.log(`Part 2: ${minPart2}`);
+const fuelCostPart1 = positions.map(val => Math.abs(median - val)).reduce((prev, curr) => prev + curr);
+const fuelCostPart2 = positions.map(val => triangle(Math.abs(mean - val))).reduce((prev, curr) => prev + curr);
+
+console.log(`Part 1: ${fuelCostPart1}`);
+console.log(`Part 2: ${fuelCostPart2}`);

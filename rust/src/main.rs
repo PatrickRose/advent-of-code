@@ -7,6 +7,7 @@ use getopts::Options;
 use std::env;
 
 mod y2016;
+mod y2021;
 
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {} FILE [options]", program);
@@ -24,7 +25,7 @@ fn main() {
     opts.optflag("e", "extended", "Do the second part");
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => { m }
-        Err(f) => { panic!(f.to_string()) }
+        Err(f) => { panic!("{}", f.to_string()) }
     };
     if matches.opt_present("h") {
         print_usage(&program, opts);
@@ -69,6 +70,7 @@ fn main() {
 
     match year {
         2016 => { y2016::run(day, matches.opt_present("e")) },
+        2021 => { y2021::run(day, matches.opt_present("e")) },
         _ => { println!("Unknown year {}", year)}
     }
 }

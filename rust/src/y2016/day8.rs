@@ -197,8 +197,8 @@ pub fn calculate_total(input: &str) -> usize {
                 }
 
                 for cap in CREATE_RECTANGLE.captures_iter(line) {
-                    let x = cap.at(1).unwrap_or("0").parse::<usize>().unwrap_or(0);
-                    let y = cap.at(2).unwrap_or("0").parse::<usize>().unwrap_or(0);
+                    let x = cap[1].parse::<usize>().unwrap_or(0);
+                    let y = cap[2].parse::<usize>().unwrap_or(0);
 
                     for i in 0..x {
                         for j in 0..y {
@@ -221,8 +221,8 @@ pub fn calculate_total(input: &str) -> usize {
                 }
 
                 for cap in ROTATE_ROW.captures_iter(line) {
-                    let row = cap.at(1).unwrap_or("0").parse::<usize>().unwrap_or(0);
-                    let amount = cap.at(2).unwrap_or("0").parse::<usize>().unwrap_or(0);
+                    let row = cap[1].parse::<usize>().unwrap_or(0);
+                    let amount = cap[2].parse::<usize>().unwrap_or(0);
                     let mut tmp = vec![false; 50];
 
                     match row {
@@ -295,8 +295,8 @@ pub fn calculate_total(input: &str) -> usize {
                     static ref ROTATE_COLUMN: Regex = Regex::new(r"^rotate column x=(\d+) by (\d+)$").unwrap();
                 }
                 for cap in ROTATE_COLUMN.captures_iter(line) {
-                    let column = cap.at(1).unwrap_or("0").parse::<usize>().unwrap_or(0);
-                    let amount = cap.at(2).unwrap_or("0").parse::<usize>().unwrap_or(0);
+                    let column = cap[1].parse::<usize>().unwrap_or(0);
+                    let amount = cap[2].parse::<usize>().unwrap_or(0);
                     let mut tmp = vec![false; 6];
 
                     tmp[0] = row1[column];
@@ -333,7 +333,7 @@ pub fn calculate_total(input: &str) -> usize {
             }
         }
     }
-    
+
     for &val in row1.iter() { print!("{}", if val { '#' } else { '.' }); } println!(" ");
     for &val in row2.iter() { print!("{}", if val { '#' } else { '.' }); } println!(" ");
     for &val in row3.iter() { print!("{}", if val { '#' } else { '.' }); } println!(" ");

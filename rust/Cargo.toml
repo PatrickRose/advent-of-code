@@ -4,8 +4,8 @@ version = "0.1.0"
 authors = ["Patrick Rose <pjr0911025@googlemail.com>"]
 
 [dependencies]
-getopts = "0.2"
-matches = "0.1"
-regex = "0.1"
-lazy_static = "0.2"
+getopts = "^0.2"
+matches = "^0.1"
+regex = "^1"
+lazy_static = "^1.4"
 rust-crypto = "^0.2"

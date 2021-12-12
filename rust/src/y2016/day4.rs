@@ -1099,8 +1099,8 @@ pub fn valid_room_number(input: &str) -> bool {
     }
 
     for cap in RE.captures_iter(input) {
-        let room_encrypt = cap.at(1).unwrap_or("");
-        let checksum = cap.at(2).unwrap_or("");
+        let room_encrypt = &cap[1];
+        let checksum = &cap[2];
         let mut counts = HashMap::new();
         for c in room_encrypt.chars() {
             if c == '-' {
@@ -1125,29 +1125,26 @@ pub fn valid_room_number(input: &str) -> bool {
 
         sort_vec.sort_by(|a, b| {
             let mut a_num = 0;
-            let mut a_char = "";
-            for a_cap in CHARACTERS.captures_iter(&a) {
-                let num = a_cap.at(1).unwrap_or("0");
+            let a_cap = CHARACTERS.captures(&a).unwrap();
+            let num = &a_cap.get(1).unwrap().as_str();
 
-                match num.parse::<usize>() {
-                    Ok(val) => {a_num = val},
-                    _ => {}
-                }
-
-                a_char = a_cap.at(2).unwrap_or("");
+            match num.parse::<usize>() {
+                Ok(val) => {a_num = val},
+                _ => {}
             }
+
+            let a_char = &a_cap.get(2).unwrap().as_str();
             let mut b_num = 0;
-            let mut b_char = "";
-            for b_cap in CHARACTERS.captures_iter(&b) {
-                let num = b_cap.at(1).unwrap_or("0");
 
-                match num.parse::<usize>() {
-                    Ok(val) => {b_num = val},
-                    _ => {}
-                }
+            let b_cap = CHARACTERS.captures(&b).unwrap();
+            let num = &b_cap.get(1).unwrap().as_str();
 
-                b_char = b_cap.at(2).unwrap_or("");
+            match num.parse::<usize>() {
+                Ok(val) => {b_num = val},
+                _ => {}
             }
+
+            let b_char = &b_cap.get(2).unwrap().as_str();
 
             match a_num.cmp(&b_num) {
                 Ordering::Greater => return Ordering::Less,
@@ -1162,7 +1159,7 @@ pub fn valid_room_number(input: &str) -> bool {
 
         for char_count in sort_vec {
             for second_cap in CHARACTERS.captures_iter(&char_count) {
-                let character = second_cap.at(2).unwrap_or("");
+                let character = &second_cap[2];
 
                 if !checksum.contains(character) {
                     return false
@@ -1182,10 +1179,10 @@ pub fn get_room_id(input: &str) -> usize {
     }
 
     for cap in RE.captures_iter(input) {
-        let num = cap.at(1).unwrap_or("");
-        match num.parse::<usize>() {
+        let num = cap[1].parse::<usize>();
+        match num {
             Err(_) => {
-                panic!("Failed to parse {} as an int, did you pass a room? :-(", num);
+                panic!("Failed to parse {} as an int, did you pass a room? :-(", &cap[1]);
             },
             Ok(number) => {
                 return number;

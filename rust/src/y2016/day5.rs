@@ -43,7 +43,7 @@ pub fn get_password(input: &str) -> String {
                 13 => answer.push('d'),
                 14 => answer.push('e'),
                 15 => answer.push('f'),
-                _ => {panic!("{}")}
+                _ => {panic!("{}", output[2] % 16)}
             }
         }
         i += 1;

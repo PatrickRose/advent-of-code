@@ -27,8 +27,8 @@ pub fn calculate_word(input: &str) -> String {
                             static ref MARKER: Regex = Regex::new(r"^(\d+)x(\d+)$").unwrap();
                         }
                         for cap in MARKER.captures_iter(&to_parse[..closing]) {
-                            let chars_to_read = cap.at(1).unwrap_or("0").parse::<usize>().unwrap_or(0);
-                            let times_to_repeat = cap.at(2).unwrap_or("0").parse::<usize>().unwrap_or(0);
+                            let chars_to_read = cap[1].parse::<usize>().unwrap_or(0);
+                            let times_to_repeat = cap[2].parse::<usize>().unwrap_or(0);
 
                             let to_repeat = &to_parse[(closing+1)..(closing+1+chars_to_read)];
                             for _ in 0..times_to_repeat {
@@ -40,7 +40,7 @@ pub fn calculate_word(input: &str) -> String {
                     },
                     None => {
                         to_return = to_return + to_parse;
-                        to_parse = "";                        
+                        to_parse = "";
                     }
                 }
             }
@@ -68,27 +68,27 @@ mod tests {
     pub fn advent_is_parsed_as_advent() {
         assert_eq!("ADVENT", calculate_word("ADVENT"));
     }
-    
+
     #[test]
     pub fn do_a1x5bc() {
         assert_eq!("ABBBBBC", calculate_word("A(1x5)BC"));
     }
-    
+
     #[test]
     pub fn do_3x3xyz() {
         assert_eq!("XYZXYZXYZ", calculate_word("(3x3)XYZ"));
     }
-    
+
     #[test]
     pub fn do_a2x2bcd2x2efg() {
         assert_eq!("ABCBCDEFEFG", calculate_word("A(2x2)BCD(2x2)EFG"));
     }
-    
+
     #[test]
     pub fn do_6x11x3a() {
         assert_eq!("(1x3)A", calculate_word("(6x1)(1x3)A"));
     }
-    
+
     #[test]
     pub fn do_x8x23x3abcy() {
         assert_eq!("X(3x3)ABC(3x3)ABCY", calculate_word("X(8x2)(3x3)ABCY"));

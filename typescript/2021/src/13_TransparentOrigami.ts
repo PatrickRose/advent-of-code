@@ -128,7 +128,7 @@ let str = '';
 for (let y = Math.min(...yValues); y <= Math.max(...yValues); y++) {
     const row = points.get(y) ?? new Map<number, true>();
     for (let x = Math.min(...xValues); x <= Math.max(...xValues); x++) {
-        str += `${row.has(x) ? '#' : '.'}`;
+        str += `${row.has(x) ? '█' : ' '}`;
     }
     str += '\n';
 }

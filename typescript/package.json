@@ -4,13 +4,18 @@
     "version": "0.0.0",
     "author": "Patrick Rose @PatrickRose",
     "dependencies": {
+        "js-priority-queue": "^0.1.5",
         "ts-md5": "^1.2.9",
-        "typescript": "4.5.2",
-        "js-priority-queue": "^0.1.5"
+        "typescript": "4.5.2"
     },
     "devDependencies": {
-        "@types/node": "^14.14.10",
+        "@types/command-line-args": "^5.2.0",
         "@types/js-priority-queue": "^0.0.6",
+        "@types/node": "^14.14.10",
+        "@types/node-fetch": "^2.0.0",
+        "command-line-args": "^5.2.0",
+        "dotenv": "^10.0.0",
+        "node-fetch": "^2.0.0",
         "nodemon": "^2.0.6",
         "ts-node": "^9.0.0",
         "tslib": "^2.0.3"
@@ -21,6 +26,7 @@
     "scripts": {
         "run-today": "npx nodemon -x ts-node",
         "compile": "tsc",
-        "watch": "tsc --watch"
+        "watch": "tsc --watch",
+        "get-input": "ts-node src/downloadInput.ts"
     }
 }

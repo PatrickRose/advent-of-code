@@ -4,3 +4,4 @@ vendor/
 out/
 *.iml
 rust/*/target/
+input/

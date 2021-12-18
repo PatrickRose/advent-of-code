@@ -55,7 +55,7 @@ function hitsTargetArea(x: number, y: number): number | false {
 const highestYs: number[] = [];
 
 for (let x = 0; x <= targetArea.x[1]; x++) {
-    for (let y = targetArea.y[0]; y <= 2 * -targetArea.y[1]; y++) {
+    for (let y = targetArea.y[0]; y <= -targetArea.y[0]; y++) {
         const result = hitsTargetArea(x, y);
         if (result !== false) {
             highestYs.push(result);

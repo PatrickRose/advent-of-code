@@ -54,19 +54,11 @@ function hitsTargetArea(x: number, y: number): number | false {
 
 const highestYs: number[] = [];
 
-const map = new Map<string, true>();
-
 for (let x = 0; x <= targetArea.x[1]; x++) {
     for (let y = targetArea.y[0]; y <= 2 * -targetArea.y[1]; y++) {
         const result = hitsTargetArea(x, y);
         if (result !== false) {
             highestYs.push(result);
-            const key = `${x},${y}`;
-            if (!map.has(key)) {
-                console.log('Found unknown value!?');
-            } else {
-                map.delete(key);
-            }
         }
     }
 }

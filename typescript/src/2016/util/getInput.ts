@@ -1,4 +1,4 @@
-import getInputBase from "../../../util/getInput";
+import getInputBase from "../../util/getInput";
 
 export default function getInput(day: number) {
     return getInputBase(2016, day)

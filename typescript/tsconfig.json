@@ -4,7 +4,7 @@
         "importHelpers": true,
         "module": "commonjs",
         "outDir": "out",
-        "rootDir": "src",
+        "rootDir": ".",
         "strict": true,
         "target": "es2021"
     },

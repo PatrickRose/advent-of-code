@@ -19,6 +19,7 @@
     "license": "MIT",
     "repository": "PatrickRose/advent-of-code",
     "scripts": {
-        "compile": "tsc"
+        "compile": "tsc",
+        "watch": "tsc --watch"
     }
 }

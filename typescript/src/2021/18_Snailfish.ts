@@ -226,12 +226,30 @@ function deepClone(number: SnailFishNumber): SnailFishNumber {
     return newNumber;
 }
 
+function isSnailFishArray(val: unknown): val is SnailFishArray {
+    if (!Array.isArray(val)) {
+        return false;
+    }
+
+    if (val.length !== 2) {
+        return false;
+    }
+
+    const [left, right] = val;
+
+    return !((typeof left !== "number" && !isSnailFishArray(left))
+        || (typeof right !== "number" && !isSnailFishArray(right)));
+}
+
 const numbers: SnailFishNumber[] = input.split("\n").map(
     row => {
         // Why bother parsing an array when that's what we're given?
-        const array: SnailFishArray = eval(row);
+        const probableArray = JSON.parse(row);
+        if (!isSnailFishArray(probableArray)) {
+            throw new Error(`${row} is not an array`);
+        }
 
-        return arrayToSnailFish(array);
+        return arrayToSnailFish(probableArray);
     }
 )
 

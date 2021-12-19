@@ -19,6 +19,7 @@
     "license": "MIT",
     "repository": "PatrickRose/advent-of-code",
     "scripts": {
+        "run-today": "npx nodemon -x ts-node",
         "compile": "tsc",
         "watch": "tsc --watch"
     }

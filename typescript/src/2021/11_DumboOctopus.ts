@@ -1,4 +1,5 @@
 import getInput from "./util/getInput";
+import {getAdjacentPoints, Point} from "../util/points";
 
 const exampleInput = `5483143223
 2745854711
@@ -14,28 +15,6 @@ const exampleInput = `5483143223
 const realInput = getInput(11);
 
 const input = realInput;
-
-function adjacentPoints(x: number, y: number): [
-    Point,
-    Point,
-    Point,
-    Point,
-    Point,
-    Point,
-    Point,
-    Point,
-] {
-    return [
-        {x: x - 1, y: y - 1},
-        {x: x - 1, y: y},
-        {x: x - 1, y: y + 1},
-        {x: x, y: y - 1},
-        {x: x, y: y + 1},
-        {x: x + 1, y: y - 1},
-        {x: x + 1, y: y},
-        {x: x + 1, y: y + 1},
-    ]
-}
 
 const octopuses = new Map<number, Map<number, number>>();
 
@@ -55,8 +34,6 @@ input.split("\n").forEach(
 );
 
 let flashes = 0;
-
-type Point = { x: number, y: number };
 
 function handleStep() {
     const toFlash: Point[] = [];
@@ -79,7 +56,7 @@ function handleStep() {
         if (oldVal == 9) {
             flashes++;
 
-            toFlash.push(...adjacentPoints(x, y));
+            toFlash.push(...getAdjacentPoints(x, y));
         }
     }
 

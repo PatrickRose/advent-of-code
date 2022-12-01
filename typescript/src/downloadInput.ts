@@ -39,7 +39,8 @@ fetch(
     `https://adventofcode.com/${year}/day/${day}/input`,
     {
         headers: {
-            cookie: `session=${process.env.SESSION_COOKIE}`
+            cookie: `session=${process.env.SESSION_COOKIE}`,
+            'User-Agent': 'node-fetch (pjr0911025+github@googlemail.com)'
         }
     }
 ).then(response => {

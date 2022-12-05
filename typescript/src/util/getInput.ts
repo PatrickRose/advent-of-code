@@ -16,5 +16,5 @@ export default function getInput(year: number, day: number) {
 
     const inputDir = getInputDirectory();
 
-    return fs.readFileSync(`${inputDir}/${year}/day${filename}.txt`).toString('utf-8').trim();
+    return fs.readFileSync(`${inputDir}/${year}/day${filename}.txt`).toString('utf-8').trimEnd();
 }

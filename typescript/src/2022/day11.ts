@@ -35,8 +35,8 @@ const monkeys: Monkey[] = [];
 const monkeys2: Monkey[] = [];
 
 class Monkey {
-    #items: bigint[];
-    #operation: (val: bigint) => bigint;
+    #items: number[];
+    #operation: (val: number) => number;
     #test: number;
     #trueTarget: number;
     #falseTarget: number;
@@ -44,8 +44,8 @@ class Monkey {
     #inspected: number = 0;
 
     public constructor(
-        starting: bigint[],
-        operation: (curr: bigint) => bigint,
+        starting: number[],
+        operation: (curr: number) => number,
         test: number,
         trueTarget: number,
         falseTarget: number,
@@ -63,7 +63,7 @@ class Monkey {
         this.#items.forEach((val) => {
             const newVal = this.#operation(val);
 
-            const toCatch = (newVal % BigInt(this.#test)) == 0n
+            const toCatch = (newVal % this.#test) == 0
                 ? this.#monkeys[this.#trueTarget]
                 : this.#monkeys[this.#falseTarget];
 
@@ -75,13 +75,13 @@ class Monkey {
         this.#items = [];
     }
 
-    public catchItem(val: bigint): void {
+    public catchItem(val: number): void {
         this.#items.push(
             // MOD the value by the product of all the tests
             // Since a mod (b)(c) == a mod b
             val % this.#monkeys.reduce(
-                (prev, curr) => prev * BigInt(curr.#test),
-                1n
+                (prev, curr) => prev * curr.#test,
+                1
             )
         );
     }
@@ -97,13 +97,13 @@ input.split('\n\n').forEach(
 
         const [_, startingItems] = starting.split(':');
 
-        const items = startingItems.split(',').map(val => BigInt(Number.parseInt(val, 10)));
+        const items = startingItems.split(',').map(val => Number.parseInt(val, 10));
         const [__, operationInfo] = operation.split(' = ');
         const [first, op, second] = operationInfo.split(' ');
 
-        const opFunction = (val: bigint): bigint => {
-            const firstPart = first == 'old' ? val : BigInt(Number.parseInt(first, 10))
-            const secondPart = second == 'old' ? val : BigInt(Number.parseInt(second, 10))
+        const opFunction = (val: number): number => {
+            const firstPart = first == 'old' ? val : Number.parseInt(first, 10)
+            const secondPart = second == 'old' ? val : Number.parseInt(second, 10)
             switch (op) {
                 case '+':
                     return firstPart + secondPart;
@@ -121,7 +121,7 @@ input.split('\n\n').forEach(
         monkeys.push(
             new Monkey(
                 items,
-                (val) => opFunction(val) / 3n,
+                (val) => Math.floor(opFunction(val) / 3),
                 Number.parseInt(testNum[0], 10),
                 Number.parseInt(ifTrueNum[0], 10),
                 Number.parseInt(ifFalseNum[0], 10),

@@ -30,3 +30,7 @@ export function getAdjacentPoints(x: number, y: number, includeDiagonals = true)
 
     return toReturn;
 }
+
+export function calculateManhattan(first: Point, second: Point): number {
+    return Math.abs(first.x - second.x) + Math.abs(first.y - second.y);
+}

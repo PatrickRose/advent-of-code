@@ -177,7 +177,6 @@ function findCycle(): [number[], number[]] {
     const baseDelta = Math.max(0, ...rocks.keys());
 
     while (!cacheEntries.includes(cacheKey)) {
-        toReturn.push(Math.max(0, ...rocks.keys()))
         cacheEntries.push(cacheKey);
         const startingY = Math.max(0, ...rocks.keys()) + 4
         const possibleRocks = [
@@ -189,7 +188,6 @@ function findCycle(): [number[], number[]] {
         ];
 
         const movingRock = possibleRocks[rock % 5];
-        const highestY = Math.max(...movingRock.getPosition().map(({ y }) => y));
 
         let canMove = true;
 
@@ -223,6 +221,7 @@ function findCycle(): [number[], number[]] {
             gasPosition % input.length
         );
 
+        toReturn.push(Math.max(0, ...rocks.keys()));
     }
 
     toReturn.pop();

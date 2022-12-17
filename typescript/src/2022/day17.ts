@@ -266,11 +266,9 @@ function getValueAtNumber(val: number): number {
         ? Math.floor(val / cycle.length)
         : 0;
 
-    if (extra == 0) {
-        return start + cycle[cycle.length - 1] * iterations;
-    }
+    const cycleExtra = extra == 0 ? 0 : cycle[extra - 1];
 
-    return start + cycle[extra - 1] + (cycle[cycle.length - 1] * iterations);
+    return start + cycleExtra + (cycle[cycle.length - 1] * iterations);
 }
 
 console.log(`Part 1: ${getValueAtNumber(2022)}`);

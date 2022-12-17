@@ -1,5 +1,5 @@
 import getInput from './util/getInput';
-import { Point } from '../util/points';
+import {Point} from '../util/points';
 
 const sampleInput = `>>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>`;
 
@@ -135,14 +135,14 @@ function findCycle(): [number[], number[]] {
     const cacheEntries: string[] = [];
 
     // Run the simulation a lot
-    for (; rock < 5000; rock++) {
+    for (; rock < 2022; rock++) {
         const startingY = Math.max(0, ...rocks.keys()) + 4
         const possibleRocks = [
-            new Minus({ x: 3, y: startingY }),
-            new Plus({ x: 3, y: startingY }),
-            new LShape({ x: 3, y: startingY }),
-            new IShape({ x: 3, y: startingY }),
-            new Square({ x: 3, y: startingY }),
+            new Minus({x: 3, y: startingY}),
+            new Plus({x: 3, y: startingY}),
+            new LShape({x: 3, y: startingY}),
+            new IShape({x: 3, y: startingY}),
+            new Square({x: 3, y: startingY}),
         ];
 
         const movingRock = possibleRocks[rock % 5];

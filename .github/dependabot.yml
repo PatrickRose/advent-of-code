@@ -12,7 +12,7 @@ updates:
     schedule:
       interval: "weekly"
 
-  - package-ecosystem: "rust"
+  - package-ecosystem: "cargo"
     directory: "/rust"
     schedule:
       interval: "weekly"

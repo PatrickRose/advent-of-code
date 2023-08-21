@@ -18,7 +18,7 @@
         "node-fetch": "^3.3.2",
         "nodemon": "^3.0.1",
         "ts-node": "^10.9.1",
-        "tslib": "^2.6.1"
+        "tslib": "^2.6.2"
     },
     "homepage": "https://github.com/PatrickRose/advent-of-code",
     "license": "MIT",

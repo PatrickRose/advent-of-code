@@ -12,7 +12,7 @@
         "@types/command-line-args": "^5.2.1",
         "@types/js-priority-queue": "^0.0.8",
         "@types/node": "^20.8.7",
-        "@types/node-fetch": "^2.6.7",
+        "@types/node-fetch": "^2.6.8",
         "command-line-args": "^5.2.1",
         "dotenv": "^16.3.1",
         "node-fetch": "^3.3.2",

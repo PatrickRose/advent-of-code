@@ -9,7 +9,7 @@
         "typescript": "5.2.2"
     },
     "devDependencies": {
-        "@types/command-line-args": "^5.2.2",
+        "@types/command-line-args": "^5.2.3",
         "@types/js-priority-queue": "^0.0.8",
         "@types/node": "^20.8.10",
         "@types/node-fetch": "^2.6.8",

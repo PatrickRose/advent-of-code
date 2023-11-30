@@ -1,13 +1,5 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "importHelpers": true,
-        "module": "commonjs",
-        "outDir": "out",
-        "rootDir": ".",
-        "strict": true,
-        "target": "es2021"
-    },
+    "extends": "@tsconfig/node20/tsconfig.json",
     "include": [
         "src/**/*"
     ]

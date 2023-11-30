@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import { getInputDirectory } from './util/getInput';
-import fetch from "node-fetch";
 import * as dotenv from "dotenv";
 import path = require("path");
 

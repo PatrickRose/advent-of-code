@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { getInputDirectory } from './util/getInput';
 import * as dotenv from "dotenv";
-import * as path from "path";
+import path = require("path");
 
 const inputDir = getInputDirectory();
 

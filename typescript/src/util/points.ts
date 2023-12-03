@@ -5,6 +5,8 @@ export type Point = {
 
 export type PointString = `${Point["x"]},${Point["y"]}`
 
+export type PointMap<T> = Map<number, Map<number, T>>;
+
 export function getAdjacentPoints(x: number, y: number, includeDiagonals = true): Point[] {
     const toReturn = [
         {x: x - 1, y: y},
@@ -37,4 +39,18 @@ export function calculateManhattan(first: Point, second: Point): number {
 
 export function pointToPointString(point: Point): PointString {
     return `${point.x},${point.y}`;
+}
+
+export function setPoint<T>(point: Point, value: T, map: PointMap<T>) {
+    let innerMap = map.get(point.y);
+    if (innerMap === undefined) {
+        innerMap = new Map<number, T>();
+        map.set(point.y, innerMap)
+    }
+
+    innerMap.set(point.x, value);
+}
+
+export function getPoint<T>(point:Point, map: PointMap<T>): T|undefined {
+    return map.get(point.y)?.get(point.x)
 }

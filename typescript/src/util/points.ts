@@ -1,3 +1,5 @@
+import parseInt from "./parseInt";
+
 export type Point = {
     x: number,
     y: number,
@@ -53,4 +55,27 @@ export function setPoint<T>(point: Point, value: T, map: PointMap<T>) {
 
 export function getPoint<T>(point:Point, map: PointMap<T>): T|undefined {
     return map.get(point.y)?.get(point.x)
+}
+
+export function setPointArray<T>(point: Point, value: T, map: T[][]) {
+    if (map[point.y] === undefined) {
+        map[point.y] = [];
+    }
+
+    map[point.y][point.x] = value;
+}
+
+export function getPointArray<T>(point:Point, map: T[][]): T|undefined {
+    if (map[point.x] === undefined) {
+        return undefined;
+    }
+
+    return map[point.x][point.y]
+}
+
+export function pointStringToPoint(point: PointString): Point {
+    return {
+        x: parseInt(point.split(',')[0]),
+        y: parseInt(point.split(',')[1])
+    }
 }

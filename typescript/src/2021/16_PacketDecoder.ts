@@ -182,7 +182,16 @@ class EqualTo extends AbstractOperatorPacket {
     }
 }
 
-const PACKET_MAP: { [key: number]: typeof LiteralValue | typeof AbstractOperatorPacket } = {
+const PACKET_MAP: Record<number,
+    typeof LiteralValue
+    | typeof SumPacket
+    | typeof ProductPacket
+    | typeof MinPacket
+    | typeof MaxPacket
+    | typeof GreaterThan
+    | typeof LessThan
+    | typeof EqualTo
+> = {
     0: SumPacket,
     1: ProductPacket,
     2: MinPacket,
@@ -206,10 +215,6 @@ function getNextPacket(bits: Bits, position: number): [AbstractPacket | null, nu
     position += 3;
 
     let constructor = PACKET_MAP[type];
-
-    if (!constructor) {
-        constructor = AbstractOperatorPacket;
-    }
 
     const packet = new constructor(version);
     return [

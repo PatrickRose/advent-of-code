@@ -148,7 +148,8 @@ function runReverse(value: number): number {
     return order.slice().reverse().reduce((prev, curr) => getReverseMappedValue(prev, curr), value)
 }
 
-console.log(`Part 1: ${getMinLocation(seeds)}`);
+const part1 = getMinLocation(seeds);
+console.log(`Part 1: ${part1}`);
 
 const seedDefs: { start: number, length: number }[] = [];
 
@@ -159,20 +160,28 @@ while (seeds.length) {
     seedDefs.push({start, length});
 }
 
-let part2 = 0;
-let part2Val = runReverse(part2)
+const range = [0, part1];
+while (range[1] - range[0] > 1) {
+    const diff = range[1] - range[0];
 
-while (!seedDefs.some(
-    ({start, length}) => {
-        if (part2Val < start) {
-            return false;
+    const testVal = range[0] + Math.ceil(diff/2);
+
+    const part2Val = runReverse(testVal);
+    const isASeedVal = seedDefs.some(
+        ({start, length}) => {
+            if (part2Val < start) {
+                return false;
+            }
+
+            return part2Val - start < length;
         }
+    )
 
-        return part2Val - start < length;
+    if (isASeedVal) {
+        range[1] = testVal;
+    } else {
+        range[0] = testVal;
     }
-)) {
-    part2++;
-    part2Val = runReverse(part2);
 }
 
-console.log(`Part 2: ${part2}`);
+console.log(`Part 2: ${range[1]}`);

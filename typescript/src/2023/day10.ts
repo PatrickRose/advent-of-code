@@ -1,14 +1,5 @@
 import getInput from "./util/getInput";
-import {
-    direction,
-    getAdjacentPoints,
-    getPoint,
-    Point,
-    PointMap,
-    PointString,
-    pointToPointString,
-    setPoint
-} from "../util/points";
+import {getPoint, Point, PointMap, PointString, pointToPointString, setPoint} from "../util/points";
 
 const testInputs = {
     example: `.....
@@ -62,7 +53,7 @@ L.L7LFJ|||||FJL7||LJ
 L7JLJL-JLJLJL--JLJ.L`
 }
 
-const input = getInput(testInputs, 10, 'eightTileArea');
+const input = getInput(testInputs, 10);
 
 type Pipe = '|' | '-' | 'L' | 'J' | '7' | 'F' | 'S';
 
@@ -180,6 +171,19 @@ while (removed) {
     })
 }
 
+const sPosPipeDef = getPoint(toDo[0], points);
+
+if (!sPosPipeDef) {
+    throw new Error('No start point');
+}
+
+const allPipes: Pipe[] = ['|', '-', 'L', 'J', '7', 'F'];
+allPipes.filter((val) => {
+    if (getAdjacentPointsForPipe({...sPosPipeDef, pipe: val}, toDo[0]).length == 2) {
+        sPosPipeDef.pipe = val;
+    }
+})
+
 while (toDo.length) {
     const pointToTest = toDo.pop();
 
@@ -209,7 +213,7 @@ while (toDo.length) {
     })
 }
 
-points.forEach((val, y) => {
+points.forEach((val,) => {
     val.forEach(({distance}, x) => {
         if (distance == Infinity) {
             val.delete(x);
@@ -233,170 +237,57 @@ const maxX = input.split('\n')[0].length;
 let part2: PointString[] = [];
 
 const outside: Set<PointString> = new Set();
-outside.add('-1,-1');
-const toCheck: Point[] = [{x:0, y:0}];
 
-function getEmptySpaceInDirection(directionMoved: "Left" | "Right" | "Up" | "Down", point: Point, previousPipe: Pipe|null = null): Point|null {
-    const pointDef = getPoint(point, points);
+for(let x=0; x<maxX; x++) {
+    let isOutside = true;
+    for (let y =0; y<maxY; y++) {
+        const point: Point = {x,y};
+        const pointStr = pointToPointString(point);
+        const pipeDef = getPoint(point, points);
 
-    if (!pointDef) {
-        return point;
+        if (!pipeDef) {
+            if (isOutside) {
+                outside.add(pointStr)
+            }
+            continue;
+        }
+
+        if (pipeDef.pipe === "-") {
+            isOutside = !isOutside;
+        } else if (pipeDef.pipe === "7") {
+            while (true) {
+                y++;
+                const pipeDef = getPoint({x,y}, points);
+                if (!pipeDef) {
+                    break;
+                }
+
+                if (pipeDef.pipe == 'L') {
+                    isOutside = !isOutside;
+                } else if (pipeDef.pipe == '|') {
+                    continue;
+                }
+                break;
+            }
+        } else if( pipeDef.pipe === "F") {
+            while (true) {
+                y++;
+                const pipeDef = getPoint({x,y}, points);
+                if (!pipeDef) {
+                    break;
+                }
+
+                if (pipeDef.pipe == 'J') {
+                    isOutside = !isOutside;
+                } else if (pipeDef.pipe == '|') {
+                    continue;
+                }
+                break;
+            }
+        }
     }
-
-    const {pipe} = pointDef;
-    let newPoint: Point;
-
-    switch (directionMoved) {
-        case "Left":
-            switch (pipe) {
-                case "-":
-                    newPoint = {x: point.x-1, y: point.y}
-                    break;
-                case "J":
-                    if (previousPipe == '7') {
-                        newPoint = {x: point.x - 1, y: point.y}
-                    } else {
-                        newPoint = {x: point.x, y: point.y + 1}
-                    }
-                    break;
-                case "7":
-                    if (previousPipe == 'J') {
-                        newPoint = {x: point.x - 1, y: point.y}
-                    } else {
-                        newPoint = {x: point.x, y: point.y - 1}
-                    }
-                    break;
-                case "|":
-                case "S": // Ignore, because I'm a coward
-                case "L":
-                case "F":
-                    return null;
-            }
-            break;
-        case "Right":
-            switch (pipe) {
-                case "-":
-                    newPoint = {x: point.x+1, y: point.y}
-                    break;
-                case "L":
-                    if (previousPipe == 'F') {
-                        newPoint = {x: point.x + 1, y: point.y}
-                    } else {
-                        newPoint = {x: point.x, y: point.y + 1}
-                    }
-                    break;
-                case "F":
-                    if (previousPipe == 'L') {
-                        newPoint = {x: point.x + 1, y: point.y}
-                    } else {
-                        newPoint = {x: point.x, y: point.y - 1}
-                    }
-                    break;
-                case "|":
-                case "S": // Ignore, because I'm a coward
-                case "7":
-                case "J":
-                    return null;
-            }
-            break;
-        case "Up":
-            switch (pipe) {
-                case "|":
-                    newPoint = {x: point.x, y: point.y-1}
-                    break;
-                case "J":
-                    if (previousPipe == 'L') {
-                        newPoint = {x: point.x, y: point.y-1}
-                    } else {
-                        newPoint = {x: point.x + 1, y: point.y}
-                    }
-                    break;
-                case "L":
-                    if (previousPipe == 'J') {
-                        newPoint = {x: point.x, y: point.y - 1}
-                    } else {
-                        newPoint = {x: point.x - 1, y: point.y};
-                    }
-                    break;
-                case "7":
-                case "-":
-                case "S": // Ignore, because I'm a coward
-                case "F":
-                    return null;
-            }
-            break;
-        case "Down":
-            switch (pipe) {
-                case "|":
-                    newPoint = {x: point.x, y: point.y+1}
-                    break;
-                case "7":
-                    if (previousPipe == 'F') {
-                        newPoint = {x: point.x, y: point.y+1}
-                    }else {
-                        newPoint = {x: point.x + 1, y: point.y}
-                    }
-                    break;
-                case "F":
-                    if (previousPipe == '7') {
-                        newPoint = {x: point.x, y: point.y+1}
-                    } else {
-                        newPoint = {x: point.x - 1, y: point.y}
-                    }
-                    break;
-                case "-":
-                case "J":
-                case "S": // Ignore, because I'm a coward
-                case "L":
-                    return null;
-            }
-            break;
-    }
-
-    return getEmptySpaceInDirection(directionMoved, newPoint, pipe);
 }
-
-while (toCheck.length) {
-    const nextToCheck = toCheck.pop();
-
-    if (!nextToCheck) {
-        continue;
-    }
-
-    const pointStr = pointToPointString(nextToCheck);
-
-    if (outside.has(pointStr)) {
-        continue;
-    }
-
-    outside.add(pointStr);
-
-    getAdjacentPoints(nextToCheck.x, nextToCheck.y, false).forEach(point => {
-        // Otherwise, have we hit a wall?
-        const directionMoved = direction(nextToCheck, point);
-
-        console.log(nextToCheck);
-        console.log(point);
-        const newPoint = getEmptySpaceInDirection(directionMoved, point);
-
-        if (!newPoint) {
-            return;
-        }
-
-        if (newPoint.x < -1
-            || newPoint.y < -1
-            || newPoint.y > maxY
-            || newPoint.x > maxX
-        ) {
-            return;
-        }
-
-        if (!getPoint(newPoint, points)) {
-            toCheck.push(point);
-        }
-    })
-}
-
+const debug = false;
 for (let y = 0; y < maxY; y++) {
     let row: string[] = [];
     for (let x = 0; x < maxX; x++) {
@@ -405,12 +296,13 @@ for (let y = 0; y < maxY; y++) {
         } else if (outside.has(pointToPointString({x,y}))) {
             row.push('O');
         } else {
-            row.push('I');
             part2.push(pointToPointString({x,y}));
         }
     }
 
-    console.log(row.join(''));
+    if (debug) {
+        console.log(row.join(''));
+    }
 }
-console.log(part2.join('\n'));
+
 console.log(`Part 2: ${part2.length}`);

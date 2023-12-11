@@ -79,3 +79,23 @@ export function pointStringToPoint(point: PointString): Point {
         y: parseInt(point.split(',')[1])
     }
 }
+
+export function direction(firstPoint: Point, secondPoint: Point): 'Left' | 'Right' | 'Up' | 'Down' {
+    const xDiff = firstPoint.x - secondPoint.x
+    const yDiff = firstPoint.y - secondPoint.y
+    if (yDiff == 0) {
+        if (xDiff == -1) {
+            return "Right"
+        } else if (xDiff == 1) {
+            return 'Left'
+        }
+    } else if (xDiff == 0) {
+        if (yDiff == -1) {
+            return "Down"
+        } else if (yDiff == 1) {
+            return 'Up'
+        }
+    }
+
+    throw Error(`Points ${pointToPointString(firstPoint)} and ${pointToPointString(secondPoint)} are not adjacent`)
+}

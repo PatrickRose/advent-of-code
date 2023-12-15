@@ -99,3 +99,21 @@ export function direction(firstPoint: Point, secondPoint: Point): 'Left' | 'Righ
 
     throw Error(`Points ${pointToPointString(firstPoint)} and ${pointToPointString(secondPoint)} are not adjacent`)
 }
+
+export function forEachPoint<T>(map: PointMap<T>, callback: (point: Point, val: T) => void, sortOrder: null|((a:Point, b:Point) => number) = null) {
+    if (sortOrder === null) {
+        map.forEach((inner, y) => {
+            inner.forEach((val, x) => callback({x, y}, val))
+        });
+    } else {
+        const items: {point: Point, val: T}[] = [];
+
+        map.forEach((inner, y) => {
+            inner.forEach((val, x) => items.push({point: {x,y}, val}))
+        });
+
+        items.sort((a,b) => sortOrder(a.point, b.point));
+
+        items.forEach(({val,point}) => callback(point, val))
+    }
+}

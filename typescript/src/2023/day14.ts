@@ -1,5 +1,5 @@
 import getInput from "./util/getInput";
-import {forEachPoint, getPoint, Point, PointMap, setPoint} from "../util/points";
+import {Direction, forEachPoint, getPoint, Point, PointMap, setPoint} from "../util/points";
 
 const testInputs = {
     example: `O....#....
@@ -32,8 +32,6 @@ input.split('\n').forEach((row, y) => {
         setPoint({y, x}, char == '#' ? 'cube' : 'rounded', rockPositions);
     })
 });
-
-type Direction = 'north' | 'south' | 'east' | 'west';
 
 const cache: Map<`${string}${Direction}`, PointMap<RockType>> = new Map();
 

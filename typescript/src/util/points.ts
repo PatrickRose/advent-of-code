@@ -117,3 +117,30 @@ export function forEachPoint<T>(map: PointMap<T>, callback: (point: Point, val: 
         items.forEach(({val,point}) => callback(point, val))
     }
 }
+
+export type Direction = 'north' | 'south' | 'east' | 'west';
+
+export function applyDirectionToPoint({x,y}: Point, direction: Direction): Point {
+    switch (direction) {
+        case "north":
+            return {
+                x,
+                y: y-1
+            }
+        case "east":
+            return {
+                x: x+1,
+                y
+            };
+        case "south":
+            return {
+                x,
+                y: y+1
+            };
+        case "west":
+            return {
+                x: x-1,
+                y
+            }
+    }
+}

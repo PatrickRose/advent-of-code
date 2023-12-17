@@ -119,6 +119,13 @@ export function forEachPoint<T>(map: PointMap<T>, callback: (point: Point, val: 
 }
 
 export type Direction = 'north' | 'south' | 'east' | 'west';
+export const DIRECTIONS: Direction[] = ['north', 'south', 'west', 'east'];
+export const DIRECTIONS_REVERSE: Record<Direction, Direction> = {
+    north: "south",
+    south: "north",
+    east: "west",
+    west: "east",
+}
 
 export function applyDirectionToPoint({x,y}: Point, direction: Direction): Point {
     switch (direction) {
@@ -143,4 +150,12 @@ export function applyDirectionToPoint({x,y}: Point, direction: Direction): Point
                 y
             }
     }
+}
+
+export function forEachPointInStr(input: string, callback: (point: Point, char: string) => void): void {
+    input.split('\n').forEach((row, y) =>
+        row.split('').forEach(
+            (char, x) => callback({x,y}, char)
+        )
+    )
 }

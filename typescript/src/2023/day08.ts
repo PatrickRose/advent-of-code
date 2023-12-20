@@ -1,4 +1,5 @@
 import getInput from "./util/getInput";
+import {highestCommonFactor} from "../util/number";
 
 const testInputs = {
     firstExample: `RL
@@ -70,14 +71,6 @@ console.log(`Part 1: ${movesFromStartToFinish('AAA', (val) => val === 'ZZZ')}`);
 const keysToCheck = Array.from(map.keys()).filter(val => val[2] == 'A');
 
 const distancesForKeys = keysToCheck.map(val => movesFromStartToFinish(val, (pos) => pos[2] == 'Z'));
-
-function highestCommonFactor(a: number, b:number): number {
-    if (b === 0) {
-        return a;
-    }
-
-    return highestCommonFactor(b, a%b);
-}
 
 const part2 = distancesForKeys.reduce((prev, curr) => (prev * curr) / highestCommonFactor(prev, curr));
 

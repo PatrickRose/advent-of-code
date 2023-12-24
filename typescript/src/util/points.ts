@@ -159,3 +159,15 @@ export function forEachPointInStr(input: string, callback: (point: Point, char: 
         )
     )
 }
+
+export type Point3D = {
+    x: number,
+    y: number,
+    z: number,
+};
+
+export function strToPoint3D(input: string): Point3D {
+    const [x, y, z] = input.split(',').map(val => parseInt(val));
+
+    return {x, y, z}
+}

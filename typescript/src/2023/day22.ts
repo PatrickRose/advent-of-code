@@ -1,6 +1,6 @@
 import getInput from "./util/getInput";
-import parseInt from "../util/parseInt";
 import {accumulator} from "../util/accumulator";
+import {Point3D, strToPoint3D} from "../util/points";
 
 const testInputs = {
     example: `1,0,1~1,2,1
@@ -14,23 +14,11 @@ const testInputs = {
 
 const input = getInput(testInputs, 22);
 
-type Point3D = {
-    x: number,
-    y: number,
-    z: number,
-};
-
 type Cube = {
     start: Point3D,
     end: Point3D,
     supports: number[],
     isSupportedBy: number[],
-}
-
-function strToPoint(input: string): Point3D {
-    const [x,y,z] = input.split(',').map(val => parseInt(val));
-
-    return {x,y,z}
 }
 
 const bricks: Cube[] = input.split('\n')
@@ -39,8 +27,8 @@ const bricks: Cube[] = input.split('\n')
         const [startStr, endStr] = row.split('~');
 
         return {
-            start: strToPoint(startStr),
-            end: strToPoint(endStr),
+            start: strToPoint3D(startStr),
+            end: strToPoint3D(endStr),
             supports: [],
             isSupportedBy: [],
         }

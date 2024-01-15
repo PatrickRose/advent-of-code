@@ -12,7 +12,7 @@
     "devDependencies": {
         "@types/command-line-args": "^5.2.3",
         "@types/js-priority-queue": "^0.0.9",
-        "@types/node": "^20.10.7",
+        "@types/node": "^20.11.1",
         "@types/node-fetch": "^2.6.10",
         "command-line-args": "^5.2.1",
         "dotenv": "^16.3.1",

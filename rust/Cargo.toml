@@ -7,5 +7,5 @@ authors = ["Patrick Rose <pjr0911025@googlemail.com>"]
 getopts = "^0.2"
 matches = "^0.1"
 regex = "^1"
-lazy_static = "^1.4"
+lazy_static = "^1.5"
 rust-crypto = "^0.2"

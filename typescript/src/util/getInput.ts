@@ -1,14 +1,20 @@
 import * as fs from "fs";
 import * as path from "path";
 
-export function getInputDirectory(): string {
+export function getRootDirectory() {
     let dir = fs.opendirSync(`${__dirname}`);
 
     while (path.basename(dir.path) != 'typescript') {
         dir = fs.opendirSync(path.dirname(dir.path));
     }
 
-    return fs.opendirSync(`${path.dirname(dir.path)}/input`).path;
+    return path.dirname(dir.path);
+}
+
+export function getInputDirectory(): string {
+    const dir = getRootDirectory();
+
+    return fs.opendirSync(`${dir}/input`).path;
 }
 
 export default function getInput(year: number, day: number) {

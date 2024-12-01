@@ -14,7 +14,7 @@
         "@types/js-priority-queue": "^0.0.9",
         "@types/node": "^22.7.7",
         "@types/node-fetch": "^2.6.11",
-        "command-line-args": "^6.0.0",
+        "command-line-args": "^6.0.1",
         "dotenv": "^16.4.5",
         "nodemon": "^3.1.7",
         "ts-node": "^10.9.2",

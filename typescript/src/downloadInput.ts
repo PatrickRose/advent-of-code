@@ -24,7 +24,7 @@ if (day === undefined) {
     day = `${Math.min((new Date).getDate(), 25)}`;
 }
 
-const fileName = `${inputDir}/${year}/day${day.length < 2 ? '0' : ''}${day}.txt`;
+const fileName = `${inputDir}/${year}/day${(new Intl.NumberFormat(undefined, {minimumIntegerDigits:2})).format(Number.parseInt(day, 10))}.txt`;
 
 // First, have we got the file? If so, tell the user that and do nothing
 if (!force && fs.existsSync(fileName)) {

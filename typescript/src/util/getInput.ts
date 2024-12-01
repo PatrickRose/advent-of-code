@@ -18,7 +18,7 @@ export function getInputDirectory(): string {
 }
 
 export default function getInput(year: number, day: number) {
-    const filename = day < 10 ? `0${day}` : day.toString(10);
+    const filename = (new Intl.NumberFormat(undefined, {minimumIntegerDigits:2})).format(day);
 
     const inputDir = getInputDirectory();
 

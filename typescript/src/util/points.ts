@@ -160,6 +160,27 @@ export function forEachPointInStr(input: string, callback: (point: Point, char: 
     )
 }
 
+export function subtractPoint(a: Point, b: Point): Point {
+    return {
+        x: a.x - b.x,
+        y: a.y - b.y
+    }
+}
+
+export function addPoint(a: Point, b: Point): Point {
+    return {
+        x: a.x + b.x,
+        y: a.y + b.y
+    }
+}
+
+export function pointOutOfRange({x,y}: Point, maxX: number, maxY: number, minX: number = 0, minY: number = 0) {
+    return x < minX
+        || x >= maxX
+        || y < minY
+        || y >= maxY;
+}
+
 export type Point3D = {
     x: number,
     y: number,

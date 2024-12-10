@@ -5,16 +5,28 @@ export function getRootDirectory() {
     let dir = fs.opendirSync(`${__dirname}`);
 
     while (path.basename(dir.path) != 'typescript') {
-        dir = fs.opendirSync(path.dirname(dir.path));
+        const newPath = dir.path;
+        dir.closeSync()
+        dir = fs.opendirSync(path.dirname(newPath));
     }
 
-    return path.dirname(dir.path);
+    try {
+        return path.dirname(dir.path);
+    } finally {
+        dir.closeSync();
+    }
 }
 
 export function getInputDirectory(): string {
     const dir = getRootDirectory();
 
-    return fs.opendirSync(`${dir}/input`).path;
+    const directory = fs.opendirSync(`${dir}/input`);
+
+    try {
+        return directory.path;
+    } finally {
+        directory.closeSync()
+    }
 }
 
 export default function getInput(year: number, day: number) {

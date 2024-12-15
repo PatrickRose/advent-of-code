@@ -53,6 +53,16 @@ export function setPoint<T>(point: Point, value: T, map: PointMap<T>) {
     innerMap.set(point.x, value);
 }
 
+export function unsetPoint<T>(point: Point, map: PointMap<T>) {
+    let innerMap = map.get(point.y);
+    if (innerMap === undefined) {
+        innerMap = new Map<number, T>();
+        map.set(point.y, innerMap)
+    }
+
+    innerMap.delete(point.x);
+}
+
 export function getPoint<T>(point:Point, map: PointMap<T>): T|undefined {
     return map.get(point.y)?.get(point.x)
 }

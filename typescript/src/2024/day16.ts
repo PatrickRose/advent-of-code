@@ -131,8 +131,9 @@ function part1(): number {
     throw new Error('Did not find the exit');
 }
 
-console.log(`Part 1: ${part1()}`);
-function part2(): number {
+const part1Res = part1();
+console.log(`Part 1: ${part1Res}`);
+function part2(shortestPath: number): number {
     const stack: [Point, Direction, number, Point[]][] = [[start, 'east', 0, []]];
     type CacheKey = `${PointString},${Direction}`;
 
@@ -144,6 +145,10 @@ function part2(): number {
     while (val = stack.shift()) {
         const [currentPoint, currentDirection, currentScore, points] = val;
         const cacheKey: CacheKey = `${pointToPointString(currentPoint)},${currentDirection}`;
+
+        if (currentScore > shortestPath) {
+            continue;
+        }
 
         if (currentPoint.x == end.x && currentPoint.y == end.y) {
             let vals = ends.get(currentScore)
@@ -185,4 +190,4 @@ function part2(): number {
     return result.size;
 }
 
-console.log(`Part 2: ${part2()}`);
+console.log(`Part 2: ${part2(part1Res)}`);

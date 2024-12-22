@@ -47,8 +47,10 @@ const secretHistory: bigint[][] = secrets.map(val => {
 
 console.log(`Part 1: ${mappedAccumulator(secretHistory, (val) => Number(val[1999]))}`);
 
-const changes: Map<string, number>[] = secretHistory.map(history => {
-    const toReturn: Map<string, number> = new Map;
+const answerMap: Map<string, number> = new Map;
+
+secretHistory.forEach(history => {
+    const toReturn: Set<string> = new Set;
 
     for (let i = 4; i<history.length; i++) {
         const parts: number[] = [];
@@ -61,24 +63,12 @@ const changes: Map<string, number>[] = secretHistory.map(history => {
         const key = parts.join(',');
 
         if (!toReturn.has(key)) {
-            toReturn.set(key, Number(history[i] % 10n));
+            toReturn.add(key);
+
+            const answerMapVal = answerMap.get(key) ?? 0;
+            answerMap.set(key, answerMapVal + Number(history[i] % 10n));
         }
     }
-
-    return toReturn;
 });
 
-const keysToCheck = changes.reduce((prev, curr) => {
-    const toAdd = new Set(curr.keys());
-    return prev.union(toAdd);
-}, new Set<string>)
-
-let max = -Infinity;
-for(const key of keysToCheck) {
-    const val = mappedAccumulator(changes, (map) => map.get(key) ?? 0);
-    if (val > max) {
-        max = val;
-    }
-}
-
-console.log(`Part 2: ${max}`);
+console.log(`Part 2: ${Math.max(...answerMap.values())}`);

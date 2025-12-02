@@ -35,17 +35,7 @@ const part1 = mappedAccumulator(ranges, ([first, second]) => {
 console.log(`Part 1: ${part1}`);
 
 function isInvalidPart2(input: number): boolean {
-    const str = `${input}`;
-
-    for(let x=1; x <= str.length / 2; x++) {
-        const subStr = str.substring(0, x);
-
-        if (str.replaceAll(subStr, '').length === 0) {
-            return true;
-        }
-    }
-
-    return false;
+    return `${input}`.match(/^(\d+)\1+$/) !== null;
 }
 
 const part2 = mappedAccumulator(ranges, ([first, second]) => {

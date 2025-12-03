@@ -13,35 +13,78 @@ const input = getInput(testInputs, 3);
 
 const batteries: string[] = input.split('\n');
 
-function getMaxTurnOns(battery: string, digitsNeeded: number, currentPosition: number = 0): number {
+type CacheKey = `${string},${number},${number}`
+
+const cache = new Map<CacheKey, number>;
+
+function getMaxTurnOns(battery: string, digitsNeeded: number, currentPosition: number = 0): number | null {
     if (digitsNeeded <= 0) {
         throw new Error('Must need at least one digit');
     }
 
-    if (digitsNeeded === 1) {
-        return Math.max(...[...battery.substring(currentPosition)].map((val) => Number.parseInt(val, 10)));
+    const subString = battery.substring(currentPosition);
+
+    if (subString.length < digitsNeeded) {
+        return null
     }
 
-    let max = 0;
+    if (subString.length == digitsNeeded) {
+        return Number.parseInt(subString, 10);
+    }
 
-    for (let x = currentPosition; x < battery.length; x++) {
-        for (let y = x+1; y < battery.length; y++) {
-            const inner = getMaxTurnOns(battery, digitsNeeded - 1, y);
-            const val = Number.parseInt(`${battery[x]}${inner}`, 10);
+    const cacheKey: CacheKey = `${battery},${digitsNeeded},${currentPosition}`;
 
-            if (val > max) {
-                max = val;
+    return getValueFromCache(
+        cacheKey,
+        () => {
+
+            if (digitsNeeded === 1) {
+                return Math.max(...[...subString].map((val) => Number.parseInt(val, 10)));
             }
-        }
-    }
 
-    return max;
+            let max = 0;
+
+            for (let x = currentPosition; x < battery.length; x++) {
+                for (let y = x + 1; y < battery.length; y++) {
+                    const inner = getMaxTurnOns(battery, digitsNeeded - 1, y);
+
+                    if (inner === null) {
+                        continue;
+                    }
+
+                    const val = Number.parseInt(`${battery[x]}${inner}`, 10);
+
+                    if (val > max) {
+                        max = val;
+                    }
+                }
+            }
+
+            return max;
+        },
+        cache
+    )
 }
 
-const part1 = mappedAccumulator(batteries, (battery) => getMaxTurnOns(battery, 2));
+const part1 = mappedAccumulator(batteries, (battery) => {
+    const val = getMaxTurnOns(battery, 2);
+
+    if (val == null) {
+        throw new Error('Should not happen')
+    }
+
+    return val;
+});
 
 console.log(`Part 1: ${part1}`);
 
-const part2 = mappedAccumulator(batteries, (battery) => getMaxTurnOns(battery, 12));
+const part2 = mappedAccumulator(batteries, (battery, index) => {
+    const val = getMaxTurnOns(battery, 12);
+
+    if (val == null) {
+        throw new Error('Should not happen')
+    }
+    return val;
+});
 
 console.log(`Part 2: ${part2}`);

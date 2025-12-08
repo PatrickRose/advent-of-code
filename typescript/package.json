@@ -7,7 +7,7 @@
         "js-priority-queue": "^0.1.5",
         "ts-md5": "^2.0.1",
         "typescript": "5.8.2",
-        "z3-solver": "^4.13.3"
+        "z3-solver": "^4.15.4"
     },
     "devDependencies": {
         "@types/command-line-args": "^5.2.3",
